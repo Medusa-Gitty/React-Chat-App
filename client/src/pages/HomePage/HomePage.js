@@ -1,7 +1,52 @@
 import React from "react";
+import {
+  Box,
+  Container,
+  Flex,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+} from "@chakra-ui/react";
+import Login from "../../components/Authentication/Login";
+import SignUp from "../../components/Authentication/SignUp";
 
 const HomePage = () => {
-  return <div>HomePage</div>;
+  return (
+    <Container maxW="xl" centerContent>
+      <Flex
+        justifyContent="center"
+        p={4}
+        bg="white"
+        w="100%"
+        m="40px 0 15px 0"
+        borderRadius="xl"
+        borderWidth="5px"
+      >
+        <Text fontSize="4xl" fontFamily="Urbanist">
+          Ping.gg
+        </Text>
+      </Flex>
+      <Box bg="white" w="100%" borderRadius="xl" borderWidth="5px" p={4}>
+        <Tabs variant="soft-rounded" colorScheme="green">
+          <TabList mb="1em">
+            <Tab w="50%">Login</Tab>
+            <Tab w="50%">Sign Up</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <Login />
+            </TabPanel>
+            <TabPanel>
+              <SignUp />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </Box>
+    </Container>
+  );
 };
 
 export default HomePage;
