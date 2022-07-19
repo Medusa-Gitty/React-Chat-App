@@ -5,17 +5,17 @@ const { chats } = require("./data/data");
 const userRoutes = require("./routes/userRoutes");
 const mongoose = require("mongoose");
 const colors = require("colors");
+const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 dotenv.config();
 
-app.get("/", (req, res) => {
-  res.send("API is available!");
-});
-
 app.use("/api/user", userRoutes);
+
+app.use(notFound);
+app.use(errorHandler);
 
 //SERVER and DB--------------------------------
 const DB = process.env.DATABASE;
