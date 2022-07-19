@@ -1,4 +1,5 @@
 const User = require("../Models/userModel");
+const generateToken = require("../config/generateToken");
 
 exports.registerUser = async (req, res) => {
   const { name, email, password, pic } = req.body;

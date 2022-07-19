@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const colors = require("colors");
 
 const app = express();
+app.use(express.json());
 app.use(cors());
 dotenv.config();
 
