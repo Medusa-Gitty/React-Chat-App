@@ -2,6 +2,9 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const { chats } = require("./data/data");
+const userRoutes = require("./routes/userRoutes");
+const mongoose = require("mongoose");
+const colors = require("colors");
 
 const app = express();
 app.use(cors());
@@ -11,18 +14,21 @@ app.get("/", (req, res) => {
   res.send("API is available!");
 });
 
-app.get("/api/chat", (req, res) => {
-  res.send(chats);
-});
+app.use("/api/user", userRoutes);
 
-app.get("/api/chat/:id", (req, res) => {
-  // res.send(req.params.id);
-  const singleChat = chats.find((c) => c._id === req.params.id);
-  res.send(singleChat);
-});
+//SERVER and DB--------------------------------
+const DB = process.env.DATABASE;
+mongoose
+  .connect(DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Connection to DB established".cyan.bold);
+  });
 
 const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`.yellow.bold);
 });
