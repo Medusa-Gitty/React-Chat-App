@@ -1,8 +1,10 @@
 const User = require("../Models/userModel");
+const asyncHandler = require("express-async-handler");
 const generateToken = require("../config/generateToken");
 
-exports.registerUser = async (req, res) => {
+exports.registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, pic } = req.body;
+
   if (!name || !email || !password) {
     res.status(400);
     throw new Error("Please enter all the required field");
@@ -34,4 +36,4 @@ exports.registerUser = async (req, res) => {
     res.status(400);
     throw new Error("Failed to create user");
   }
-};
+});
