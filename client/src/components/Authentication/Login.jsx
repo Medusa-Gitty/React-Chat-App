@@ -42,8 +42,15 @@ const Login = () => {
           "Content-Type": "application/json",
         }
       );
-
+      toast({
+        title: "Logged In",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+        position: "bottom",
+      });
       console.log(data);
+      localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
     } catch {
       toast({
