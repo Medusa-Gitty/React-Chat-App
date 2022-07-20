@@ -9,6 +9,7 @@ import {
   Button,
   useToast,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const SignUp = () => {
@@ -22,12 +23,14 @@ const SignUp = () => {
   const [picLoading, setPicLoading] = useState(false);
   const [pic, setPic] = useState();
   const toast = useToast();
+  const navigate = useNavigate();
 
   function handleClick() {
     setPassword((prev) => {
       return { ...prev, show: !prev.show };
     });
   }
+
   function handleClickConfirm() {
     setConfirmpassword((prev) => {
       return { ...prev, show: !prev.show };
@@ -83,7 +86,7 @@ const SignUp = () => {
     setPicLoading(true);
     if (!name || !email || !password.text || !confirmpassword.text) {
       toast({
-        title: "Please Fill all the required fields",
+        title: "Please fill all the required fields",
         status: "warning",
         duration: 2000,
         isClosable: true,
@@ -100,9 +103,9 @@ const SignUp = () => {
         isClosable: true,
         position: "bottom",
       });
+      setPicLoading(false);
       return;
     }
-    console.log(name, email, password.text, pic);
     try {
       const config = {
         headers: {
@@ -121,7 +124,6 @@ const SignUp = () => {
       );
       toast({
         title: "Account created.",
-        description: "We've created your account for you. Please Log In",
         status: "success",
         duration: 2000,
         isClosable: true,
@@ -130,11 +132,12 @@ const SignUp = () => {
 
       localStorage.setItem("userInfo", JSON.stringify(data));
       setPicLoading(false);
+      navigate("/chats");
     } catch (err) {
       toast({
-        title: "Error !",
-        description: err.message,
-        status: "warning",
+        title: "Error!",
+        description: err.response.data.message,
+        status: "error",
         duration: 2000,
         isClosable: true,
         position: "bottom",
@@ -165,6 +168,7 @@ const SignUp = () => {
         <FormLabel>Password</FormLabel>
         <InputGroup size="md">
           <Input
+            pr="4.5rem"
             type={password.show ? "text" : "password"}
             placeholder="Enter Password"
             onChange={(e) => setPassword({ ...password, text: e.target.value })}
