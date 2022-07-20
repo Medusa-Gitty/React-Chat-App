@@ -9,8 +9,6 @@ import {
   Button,
   useToast,
 } from "@chakra-ui/react";
-import { useSelector, useDispatch } from "react-redux";
-import { userSignUpActions } from "../../redux/userSignUpSlice";
 import axios from "axios";
 
 const SignUp = () => {
