@@ -6,21 +6,60 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
+import axios from "axios";
 
 const Login = () => {
   const [show, setShow] = useState(false);
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
   function handleClick() {
     setShow((prev) => !prev);
   }
 
+  async function submitHandler() {
+    setLoading(true);
+    if (email === "" || password === "") {
+      toast({
+        title: "Please Fill all the required fields",
+        status: "warning",
+        duration: 2000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setLoading(false);
+      return;
+    }
+    try {
+      const { data } = await axios.post(
+        "http://localhost:5000/api/user/login",
+        { email, password },
+        {
+          "Content-Type": "application/json",
+        }
+      );
+
+      console.log(data);
+      setLoading(false);
+    } catch {
+      toast({
+        title: "Wrong Credentials",
+        status: "warning",
+        duration: 2000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setLoading(false);
+    }
+  }
+
   return (
     <VStack spacing="10px">
-      <FormControl id="email" isRequired>
+      <FormControl id="emailLogin" isRequired>
         <FormLabel>Email Address</FormLabel>
         <Input
           value={email}
@@ -29,7 +68,7 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
       </FormControl>
-      <FormControl id="password" isRequired>
+      <FormControl id="passwordLogin" isRequired>
         <FormLabel>Password</FormLabel>
         <InputGroup size="md">
           <Input
@@ -54,8 +93,8 @@ const Login = () => {
         colorScheme="linkedin"
         width="100%"
         style={{ marginTop: 15 }}
-        // onClick={submitHandler}
-        // isLoading={loading}
+        onClick={submitHandler}
+        isLoading={loading}
       >
         Login
       </Button>
