@@ -7,9 +7,11 @@ import {
   InputGroup,
   InputRightElement,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { userSignUpActions } from "../../redux/userSignUpSlice";
+import axios from "axios";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -19,7 +21,9 @@ const SignUp = () => {
     text: "",
     show: false,
   });
-  const [pic, setPic] = useState("");
+  const [picLoading, setPicLoading] = useState(false);
+  const [pic, setPic] = useState();
+  const toast = useToast();
 
   function handleClick() {
     setPassword((prev) => {
@@ -32,9 +36,114 @@ const SignUp = () => {
     });
   }
 
-  function postDetails(pics) {}
+  function postDetails(pics) {
+    setPicLoading(true);
+    if (pics === undefined) {
+      toast({
+        title: "Please Select an Image!",
+        status: "warning",
+        duration: 2000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
+    console.log(pics);
+    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "chat-app");
+      data.append("cloud_name", "dejuqnyhm");
+      fetch("https://api.cloudinary.com/v1_1/dejuqnyhm/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setPic(data.url.toString());
+          console.log(data.url.toString());
+          setPicLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setPicLoading(false);
+        });
+    } else {
+      toast({
+        title: "Please Select an Image!",
+        status: "warning",
+        duration: 2000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setPicLoading(false);
+      return;
+    }
+  }
 
-  function submitHandler() {}
+  async function submitHandler() {
+    setPicLoading(true);
+    if (!name || !email || !password.text || !confirmpassword.text) {
+      toast({
+        title: "Please Fill all the required fields",
+        status: "warning",
+        duration: 2000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setPicLoading(false);
+      return;
+    }
+    if (password.text !== confirmpassword.text) {
+      toast({
+        title: "Passwords Do Not Match",
+        status: "warning",
+        duration: 2000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
+    console.log(name, email, password.text, pic);
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const { data } = await axios.post(
+        "http://localhost:5000/api/user",
+        {
+          name,
+          email,
+          password: password.text,
+          pic,
+        },
+        config
+      );
+      toast({
+        title: "Account created.",
+        description: "We've created your account for you. Please Log In",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+        position: "bottom",
+      });
+
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      setPicLoading(false);
+    } catch (err) {
+      toast({
+        title: "Error !",
+        description: err.message,
+        status: "warning",
+        duration: 2000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setPicLoading(false);
+    }
+  }
 
   return (
     <VStack>
@@ -75,7 +184,7 @@ const SignUp = () => {
         </InputGroup>
       </FormControl>
 
-      <FormControl id="password" isRequired>
+      <FormControl id="passwordConfirm" isRequired>
         <FormLabel>Confirm Password</FormLabel>
         <InputGroup size="md">
           <Input
@@ -112,7 +221,7 @@ const SignUp = () => {
         width="100%"
         style={{ marginTop: 15 }}
         onClick={submitHandler}
-        // isLoading={picLoading}
+        isLoading={picLoading}
       >
         Sign Up
       </Button>
