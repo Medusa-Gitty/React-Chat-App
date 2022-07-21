@@ -1,26 +1,12 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { getItem } from "../../helpers/localStorage";
+import { useSelector, useDispatch } from "react-redux";
 
 const ChatPage = () => {
-  const [chats, setChats] = useState([]);
+  let user = useSelector((state) => state.userData);
+  console.log("data:", user);
 
-  useEffect(() => {
-    fetch();
-  }, []);
-
-  const fetch = async () => {
-    const { data } = await axios.get("http://localhost:5000/api/chat");
-    console.log(data);
-    setChats(data);
-  };
-
-  return (
-    <div>
-      {chats.map((ch) => (
-        <div key={ch._id}>{ch.chatName}</div>
-      ))}
-    </div>
-  );
+  return <div></div>;
 };
 
 export default ChatPage;

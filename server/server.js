@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const { chats } = require("./data/data");
 const userRoutes = require("./routes/userRoutes");
+const chatRoutes = require("./routes/chatRoutes");
 const mongoose = require("mongoose");
 const colors = require("colors");
 const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
@@ -13,6 +14,7 @@ app.use(cors());
 dotenv.config();
 
 app.use("/api/user", userRoutes);
+app.use("/api/chat", chatRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Container,
@@ -12,8 +12,18 @@ import {
 } from "@chakra-ui/react";
 import Login from "../../components/Authentication/Login";
 import SignUp from "../../components/Authentication/SignUp";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+  const data = useSelector((state) => state.userData);
+  useEffect(() => {
+    if (data !== "") {
+      navigate("/chats");
+    }
+  }, [navigate, data]);
+
   return (
     <Container maxW="xl" centerContent>
       <Flex
