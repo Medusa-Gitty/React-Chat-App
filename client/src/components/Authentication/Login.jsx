@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   FormControl,
@@ -17,6 +18,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const toast = useToast();
+  const navigate = useNavigate();
   function handleClick() {
     setShow((prev) => !prev);
   }
@@ -52,6 +54,7 @@ const Login = () => {
       console.log(data);
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
+      navigate("/chats");
     } catch {
       toast({
         title: "Wrong Credentials",
