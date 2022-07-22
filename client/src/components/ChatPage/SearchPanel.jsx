@@ -24,23 +24,30 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { SearchIcon, BellIcon } from "@chakra-ui/icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { removeItem } from "../../helpers/localStorage";
 import ProfileModal from "./ProfileModal";
 import UserListItem from "../User/UserListItem";
 import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 import axios from "axios";
+import { chatSliceActions } from "../../redux/chatSlice";
 
 const SearchPanel = () => {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingChat, setLoadingChat] = useState(false);
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
+
   const toast = useToast();
+  const dispatch = useDispatch();
+
   const userData = useSelector((state) => state.userData);
+  const chatData = useSelector((state) => state.chatData);
+  console.log(chatData);
 
   const logoutHandler = () => {
     removeItem("userInfo");
@@ -64,7 +71,6 @@ const SearchPanel = () => {
 
       setLoading(false);
       setSearchResult(data);
-      console.log("Data = ", searchResult);
     } catch (error) {
       toast({
         title: "No user found",
@@ -75,7 +81,34 @@ const SearchPanel = () => {
     }
   }, 1000);
 
-  function accessChat(id) {}
+  async function accessChat(id) {
+    try {
+      setLoadingChat(true);
+      const config = {
+        "Content-type": "application/json",
+        headers: { Authorization: `Bearer ${userData.token}` },
+      };
+
+      const { data } = await axios.post(
+        `http://localhost:5000/api/chat`,
+        { userId: id },
+        config
+      );
+      console.log(data);
+      setLoadingChat(false);
+      dispatch(chatSliceActions.setSelectedChat(data));
+      onClose();
+    } catch (error) {
+      toast({
+        title: "Error fetching the chat",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-left",
+      });
+    }
+  }
 
   return (
     <>
