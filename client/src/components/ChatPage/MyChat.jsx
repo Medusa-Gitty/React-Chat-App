@@ -1,17 +1,29 @@
 import { AddIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, Stack, Text, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Skeleton,
+  Stack,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getSender } from "../../helpers/chatLogics";
 import { chatSliceActions } from "../../redux/chatSlice";
+import { getItem } from "../../helpers/localStorage";
 
 const MyChat = () => {
+  //LOCAL STATE
   const [loggedUser, setLoggedUser] = useState();
-  const toast = useToast();
+  //REDUX
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userData);
   const { chats, selectedChat } = useSelector((state) => state.chatData);
+  //MISC
+  const toast = useToast();
 
   const fetchChats = async () => {
     try {
@@ -24,7 +36,6 @@ const MyChat = () => {
         "http://localhost:5000/api/chat",
         config
       );
-      // console.log(data);
       dispatch(chatSliceActions.setChats(data));
     } catch (error) {
       toast({
@@ -39,7 +50,7 @@ const MyChat = () => {
   };
 
   useEffect(() => {
-    setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
+    setLoggedUser(getItem("userInfo"));
     fetchChats();
   }, []);
 
@@ -57,7 +68,7 @@ const MyChat = () => {
       <Flex
         pb={3}
         px={3}
-        fontSize={{ base: "28px", md: "30px" }}
+        fontSize={["28px", "30px"]}
         w="100%"
         justifyContent="space-between"
         alignItems="center"
@@ -65,7 +76,7 @@ const MyChat = () => {
         My Chats
         <Button
           d="flex"
-          fontSize={{ base: "17px", md: "10px", lg: "17px" }}
+          fontSize={["17px", "10px", "17px"]}
           rightIcon={<AddIcon />}
         >
           New Group Chat
@@ -82,29 +93,39 @@ const MyChat = () => {
         overflowY="hidden"
       >
         {chats ? (
-          // <Stack overflowY="scroll">
-          //   {chats.map((chat, index) => (
-          //     <Box
-          //       onClick={() => dispatch(chatSliceActions.setSelectedChat(chat))}
-          //       cursor="pointer"
-          //       bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
-          //       color={selectedChat === chat ? "white" : "black"}
-          //       px={3}
-          //       py={2}
-          //       borderRadius="lg"
-          //       key={index}
-          //     >
-          //       {/* <Text>
-          //         {!chat.isGroupChat
-          //           ? getSender(loggedUser, chat.users)
-          //           : chat.chatName}
-          //       </Text> */}
-          //     </Box>
-          //   ))}
-          // </Stack>
-          <div></div>
+          <Stack overflowY="scroll">
+            {chats.map((chat) => (
+              <Box
+                onClick={() => dispatch(chatSliceActions.setSelectedChat(chat))}
+                cursor="pointer"
+                bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                color={selectedChat === chat ? "white" : "black"}
+                px={3}
+                py={2}
+                borderRadius="lg"
+                key={chat._id}
+              >
+                <Text>
+                  {!chat.isGroupChat
+                    ? getSender(loggedUser, chat.users)
+                    : chat.chatName}
+                </Text>
+              </Box>
+            ))}
+          </Stack>
         ) : (
-          <div>dasd</div>
+          <Stack>
+            <Skeleton height="50px" />
+            <Skeleton height="50px" />
+            <Skeleton height="50px" />
+            <Skeleton height="50px" />
+            <Skeleton height="50px" />
+            <Skeleton height="50px" />
+            <Skeleton height="50px" />
+            <Skeleton height="50px" />
+            <Skeleton height="50px" />
+            <Skeleton height="50px" />
+          </Stack>
         )}
       </Box>
     </Box>
