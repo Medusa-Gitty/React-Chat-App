@@ -1,8 +1,9 @@
-import { Flex, IconButton, Text } from "@chakra-ui/react";
+import { Button, Flex, IconButton, Text } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSender } from "../../helpers/chatLogics";
+import { getSender, getSenderFull } from "../../helpers/chatLogics";
+import ProfileModal from "./ProfileModal";
 
 const SingleChat = () => {
   //REDUX
@@ -30,7 +31,14 @@ const SingleChat = () => {
               onClick={() => setSelectedChat("")}
             />
             {!selectedChat.isGroupChat ? (
-              <>{getSender(user, selectedChat.users)}</>
+              <>
+                {getSender(user, selectedChat.users)}
+                <Button>
+                  <ProfileModal
+                    user={getSenderFull(user, selectedChat.users)}
+                  />
+                </Button>
+              </>
             ) : (
               <>
                 {selectedChat.chatName.toUpperCase()}
