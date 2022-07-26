@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getSender } from "../../helpers/chatLogics";
 import { chatSliceActions } from "../../redux/chatSlice";
 import { getItem } from "../../helpers/localStorage";
+import GroupChatModal from "./GroupChatModal";
 
 const MyChat = () => {
   //LOCAL STATE
@@ -74,13 +75,15 @@ const MyChat = () => {
         alignItems="center"
       >
         My Chats
-        <Button
-          d="flex"
-          fontSize={["17px", "10px", "17px"]}
-          rightIcon={<AddIcon />}
-        >
-          New Group Chat
-        </Button>
+        <GroupChatModal>
+          <Button
+            d="flex"
+            fontSize={["17px", "10px", "17px"]}
+            rightIcon={<AddIcon />}
+          >
+            New Group Chat
+          </Button>
+        </GroupChatModal>
       </Flex>
       <Box
         d="flex"
