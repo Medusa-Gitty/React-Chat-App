@@ -82,26 +82,27 @@ const MyChat = () => {
         overflowY="hidden"
       >
         {chats ? (
-          <Stack overflowY="scroll">
-            {chats.map((chat, index) => (
-              <Box
-                onClick={() => dispatch(chatSliceActions.setSelectedChat(chat))}
-                cursor="pointer"
-                bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
-                color={selectedChat === chat ? "white" : "black"}
-                px={3}
-                py={2}
-                borderRadius="lg"
-                key={index}
-              >
-                {/* <Text>
-                  {!chat.isGroupChat
-                    ? getSender(loggedUser, chat.users)
-                    : chat.chatName}
-                </Text> */}
-              </Box>
-            ))}
-          </Stack>
+          // <Stack overflowY="scroll">
+          //   {chats.map((chat, index) => (
+          //     <Box
+          //       onClick={() => dispatch(chatSliceActions.setSelectedChat(chat))}
+          //       cursor="pointer"
+          //       bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+          //       color={selectedChat === chat ? "white" : "black"}
+          //       px={3}
+          //       py={2}
+          //       borderRadius="lg"
+          //       key={index}
+          //     >
+          //       {/* <Text>
+          //         {!chat.isGroupChat
+          //           ? getSender(loggedUser, chat.users)
+          //           : chat.chatName}
+          //       </Text> */}
+          //     </Box>
+          //   ))}
+          // </Stack>
+          <div></div>
         ) : (
           <div>dasd</div>
         )}
