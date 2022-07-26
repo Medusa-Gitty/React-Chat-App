@@ -34,26 +34,27 @@ import axios from "axios";
 import { chatSliceActions } from "../../redux/chatSlice";
 
 const SearchPanel = () => {
+  //LOCAL States
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState(false);
-  const navigate = useNavigate();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef();
-  const toast = useToast();
+  //REDUX
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userData);
-  const chats = useSelector((state) => state.chatData);
+  const { chats } = useSelector((state) => state.chatData);
+  //MISC
+  const toast = useToast();
+  const btnRef = React.useRef();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
 
   const logoutHandler = () => {
     removeItem("userInfo");
     navigate("/");
   };
 
-  //Debouncing
+  //ALL USERS in DB Search with DEBOUNCING
   const handleSearch = debounce(async (text) => {
-    // setSearch(text);
-    //Data fetch
     try {
       setLoading(true);
       if (text === "") {
@@ -68,15 +69,18 @@ const SearchPanel = () => {
         `http://localhost:5000/api/user?search=${text}`,
         config
       );
+      setLoading(false);
       if (data.length === 0) {
+        setSearchResult([]);
         toast({
-          title: "No user found",
+          title: "WELP !",
+          description: `No user found with name ${text}`,
           status: "warning",
-          duration: 1000,
+          duration: 3000,
           isClosable: true,
         });
+        return;
       }
-      setLoading(false);
       setSearchResult(data);
     } catch (error) {
       toast({
@@ -88,21 +92,24 @@ const SearchPanel = () => {
     }
   }, 1000);
 
-  async function accessChat(id) {
+  //ACCESS THE CHAT and SAVE TO LS for CHATTING
+  const accessChat = async (id) => {
     try {
       setLoadingChat(true);
       const config = {
-        "Content-type": "application/json",
-        headers: { Authorization: `Bearer ${userData.token}` },
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${userData.token}`,
+        },
       };
       const { data } = await axios.post(
         `http://localhost:5000/api/chat`,
         { userId: id },
         config
       );
-      // if (!chats.find((chat) => chat._id === data._id)) {
-      //   dispatch(chatSliceActions.setChats([data, ...chats]));
-      // }
+      if (!chats.find((chat) => chat._id === data._id)) {
+        dispatch(chatSliceActions.setChats([data, ...chats]));
+      }
       dispatch(chatSliceActions.setSelectedChat(data));
       setLoadingChat(false);
       onClose();
@@ -111,17 +118,17 @@ const SearchPanel = () => {
         title: "Error fetching the chat",
         description: error.message,
         status: "error",
-        duration: 1000,
+        duration: 3000,
         isClosable: true,
         position: "bottom-left",
       });
     }
-  }
+  };
 
   return (
     <>
       <Flex
-        justifyContent={"space-between"}
+        justifyContent="space-between"
         alignItems="center"
         w="100%"
         p={3}
