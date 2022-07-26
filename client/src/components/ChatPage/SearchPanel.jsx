@@ -11,7 +11,6 @@ import {
   Text,
   Drawer,
   DrawerBody,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
@@ -21,6 +20,7 @@ import {
   useToast,
   Stack,
   Skeleton,
+  Spinner,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { SearchIcon, BellIcon } from "@chakra-ui/icons";
@@ -34,20 +34,16 @@ import axios from "axios";
 import { chatSliceActions } from "../../redux/chatSlice";
 
 const SearchPanel = () => {
-  const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState(false);
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
-
   const toast = useToast();
   const dispatch = useDispatch();
-
   const userData = useSelector((state) => state.userData);
-  const chatData = useSelector((state) => state.chatData);
-  console.log(chatData);
+  const chats = useSelector((state) => state.chatData);
 
   const logoutHandler = () => {
     removeItem("userInfo");
@@ -60,7 +56,11 @@ const SearchPanel = () => {
     //Data fetch
     try {
       setLoading(true);
-      if (text === "") return;
+      if (text === "") {
+        setLoading(false);
+        setSearchResult([]);
+        return;
+      }
       const config = {
         headers: { Authorization: `Bearer ${userData.token}` },
       };
@@ -68,7 +68,14 @@ const SearchPanel = () => {
         `http://localhost:5000/api/user?search=${text}`,
         config
       );
-
+      if (data.length === 0) {
+        toast({
+          title: "No user found",
+          status: "warning",
+          duration: 1000,
+          isClosable: true,
+        });
+      }
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
@@ -88,22 +95,23 @@ const SearchPanel = () => {
         "Content-type": "application/json",
         headers: { Authorization: `Bearer ${userData.token}` },
       };
-
       const { data } = await axios.post(
         `http://localhost:5000/api/chat`,
         { userId: id },
         config
       );
-      console.log(data);
-      setLoadingChat(false);
+      // if (!chats.find((chat) => chat._id === data._id)) {
+      //   dispatch(chatSliceActions.setChats([data, ...chats]));
+      // }
       dispatch(chatSliceActions.setSelectedChat(data));
+      setLoadingChat(false);
       onClose();
     } catch (error) {
       toast({
         title: "Error fetching the chat",
         description: error.message,
         status: "error",
-        duration: 5000,
+        duration: 1000,
         isClosable: true,
         position: "bottom-left",
       });
@@ -192,13 +200,8 @@ const SearchPanel = () => {
                 />
               ))
             )}
+            {loadingChat && <Spinner ml="auto" d="flex" />}
           </DrawerBody>
-          <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme="blue">Save</Button>
-          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </>
