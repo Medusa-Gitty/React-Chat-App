@@ -1,14 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getItem } from "../helpers/localStorage";
 
-const initialState = getItem("userInfo") || "";
+const userData = getItem("userInfo") || "";
+
+const initialState = {
+  userData: userData,
+};
 
 const userSlice = createSlice({
   name: "user",
   initialState: initialState,
   reducers: {
     setUser(state, payload) {
-      state = payload.payload;
+      state.userData = payload.payload;
     },
   },
 });

@@ -32,6 +32,7 @@ import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 import axios from "axios";
 import { chatSliceActions } from "../../redux/chatSlice";
+import { userSliceActions } from "../../redux/userSlice";
 
 const SearchPanel = () => {
   //LOCAL States
@@ -40,17 +41,18 @@ const SearchPanel = () => {
   const [loadingChat, setLoadingChat] = useState(false);
   //REDUX
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.userData);
+  const userData = useSelector((state) => state.userData.userData);
   const { chats } = useSelector((state) => state.chatData);
   //MISC
   const toast = useToast();
   const btnRef = React.useRef();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const navigate = useNavigate();
 
   const logoutHandler = () => {
+    //Remove from Local Storage
     removeItem("userInfo");
-    navigate("/");
+    //remove from REDUX
+    dispatch(userSliceActions.setUser(""));
   };
 
   //ALL USERS in DB Search with DEBOUNCING

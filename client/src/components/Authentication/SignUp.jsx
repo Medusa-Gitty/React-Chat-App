@@ -9,10 +9,9 @@ import {
   Button,
   useToast,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import userSliceActions from "../../redux/userSlice";
+import { userSliceActions } from "../../redux/userSlice";
 
 const SignUp = () => {
   //REDUX
@@ -29,7 +28,7 @@ const SignUp = () => {
   const [pic, setPic] = useState();
   //MISC
   const toast = useToast();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   function handleClick() {
     setPassword((prev) => {
@@ -55,7 +54,6 @@ const SignUp = () => {
       });
       return;
     }
-    console.log(pics);
     if (pics.type === "image/jpeg" || pics.type === "image/png") {
       const data = new FormData();
       data.append("file", pics);
@@ -139,10 +137,8 @@ const SignUp = () => {
       //Save in local storage
       localStorage.setItem("userInfo", JSON.stringify(data));
       //Save in REDUX
-      dispatch();
-
+      dispatch(userSliceActions.setUser(data));
       setPicLoading(false);
-      navigate("/chats");
     } catch (err) {
       toast({
         title: "Error!",
