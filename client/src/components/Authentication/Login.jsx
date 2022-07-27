@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   Button,
   FormControl,
@@ -11,6 +10,8 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { userSliceActions } from "../../redux/userSlice";
 
 const Login = () => {
   const [show, setShow] = useState(false);
@@ -18,7 +19,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const toast = useToast();
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function handleClick() {
     setShow((prev) => !prev);
@@ -52,10 +53,9 @@ const Login = () => {
         isClosable: true,
         position: "bottom",
       });
-      console.log(data);
       localStorage.setItem("userInfo", JSON.stringify(data));
+      dispatch(userSliceActions.setUser(data));
       setLoading(false);
-      navigate("/chats");
     } catch {
       toast({
         title: "Wrong Credentials",

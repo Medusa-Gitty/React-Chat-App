@@ -28,7 +28,7 @@ const EditGroupChatModal = ({ fetchAgain, setFetchAgain }) => {
   const [loading, setLoading] = useState(false);
   const [renameloading, setRenameLoading] = useState(false);
   //REDUX
-  const user = useSelector((state) => state.userData);
+  const user = useSelector((state) => state.userData.userData);
   const dispatch = useDispatch();
   const { selectedChat } = useSelector((state) => state.chatData);
   console.log(selectedChat);

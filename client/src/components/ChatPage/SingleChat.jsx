@@ -1,4 +1,4 @@
-import { Box, Button, Flex, IconButton, Text } from "@chakra-ui/react";
+import { Button, Flex, IconButton, Text } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +10,7 @@ import EditGroupChatModal from "./EditGroupChatModal";
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   //REDUX
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.userData);
+  const user = useSelector((state) => state.userData.userData);
   const { selectedChat } = useSelector((state) => state.chatData);
 
   const handleBack = () => {

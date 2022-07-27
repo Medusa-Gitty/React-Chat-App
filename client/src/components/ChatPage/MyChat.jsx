@@ -21,7 +21,7 @@ const MyChat = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
   //REDUX
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.userData);
+  const user = useSelector((state) => state.userData.userData);
   const { chats, selectedChat } = useSelector((state) => state.chatData);
   //MISC
   const toast = useToast();

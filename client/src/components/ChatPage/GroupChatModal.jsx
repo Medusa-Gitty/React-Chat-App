@@ -31,7 +31,7 @@ const GroupChatModal = ({ children }) => {
   const toast = useToast();
   //REDUX
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.userData);
+  const user = useSelector((state) => state.userData.userData);
   const { chats } = useSelector((state) => state.chatData);
 
   const handleSearch = async (text) => {
