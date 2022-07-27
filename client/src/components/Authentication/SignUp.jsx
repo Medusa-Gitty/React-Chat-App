@@ -11,8 +11,13 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import userSliceActions from "../../redux/userSlice";
 
 const SignUp = () => {
+  //REDUX
+  const dispatch = useDispatch();
+  //LOCAL STATES
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState({ text: "", show: false });
@@ -22,6 +27,7 @@ const SignUp = () => {
   });
   const [picLoading, setPicLoading] = useState(false);
   const [pic, setPic] = useState();
+  //MISC
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -97,7 +103,7 @@ const SignUp = () => {
     }
     if (password.text !== confirmpassword.text) {
       toast({
-        title: "Passwords Do Not Match",
+        title: "Passwords do not match",
         status: "warning",
         duration: 2000,
         isClosable: true,
@@ -130,14 +136,18 @@ const SignUp = () => {
         position: "bottom",
       });
 
+      //Save in local storage
       localStorage.setItem("userInfo", JSON.stringify(data));
+      //Save in REDUX
+      dispatch();
+
       setPicLoading(false);
       navigate("/chats");
     } catch (err) {
       toast({
         title: "Error!",
         description: err.response.data.message,
-        status: "error",
+        status: "warning",
         duration: 2000,
         isClosable: true,
         position: "bottom",
@@ -165,13 +175,14 @@ const SignUp = () => {
       </FormControl>
 
       <FormControl id="password" isRequired>
-        <FormLabel>Password</FormLabel>
+        <FormLabel>Password {password.show ? "😲" : "🙄"}</FormLabel>
         <InputGroup size="md">
           <Input
             pr="4.5rem"
             type={password.show ? "text" : "password"}
             placeholder="Enter Password"
             onChange={(e) => setPassword({ ...password, text: e.target.value })}
+            fontFamily={"heading"}
           />
           <InputRightElement width="4.5rem">
             <Button
@@ -187,7 +198,9 @@ const SignUp = () => {
       </FormControl>
 
       <FormControl id="passwordConfirm" isRequired>
-        <FormLabel>Confirm Password</FormLabel>
+        <FormLabel>
+          Confirm Password {confirmpassword.show ? "😲" : "🙄"}
+        </FormLabel>
         <InputGroup size="md">
           <Input
             type={confirmpassword.show ? "text" : "password"}
@@ -195,6 +208,7 @@ const SignUp = () => {
             onChange={(e) =>
               setConfirmpassword({ ...confirmpassword, text: e.target.value })
             }
+            fontFamily={"heading"}
           />
           <InputRightElement width="4.5rem">
             <Button

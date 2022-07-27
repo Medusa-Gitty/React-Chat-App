@@ -6,9 +6,13 @@ const initialState = getItem("userInfo") || "";
 const userSlice = createSlice({
   name: "user",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    setUser(state, payload) {
+      state = payload.payload;
+    },
+  },
 });
 
 export default userSlice;
 
-export const userActions = userSlice.actions;
+export const userSliceActions = userSlice.actions;

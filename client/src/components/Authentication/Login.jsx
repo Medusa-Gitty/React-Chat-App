@@ -19,6 +19,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const navigate = useNavigate();
+
   function handleClick() {
     setShow((prev) => !prev);
   }
@@ -79,13 +80,14 @@ const Login = () => {
         />
       </FormControl>
       <FormControl id="passwordLogin" isRequired>
-        <FormLabel>Password</FormLabel>
+        <FormLabel>Password {!show ? "🙄" : "😲"}</FormLabel>
         <InputGroup size="md">
           <Input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type={show ? "text" : "password"}
             placeholder="Enter password"
+            fontFamily={"heading"}
           />
           <InputRightElement width="4.5rem">
             <Button

@@ -14,6 +14,7 @@ import Login from "../../components/Authentication/Login";
 import SignUp from "../../components/Authentication/SignUp";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import "./homepage.scss";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -34,9 +35,18 @@ const HomePage = () => {
         m="40px 0 15px 0"
         borderRadius="xl"
         borderWidth="5px"
+        className="container"
       >
-        <Text fontSize="4xl" fontFamily="Urbanist">
-          Ping.gg
+        <Text
+          fontSize="4xl"
+          fontWeight="extrabold"
+          size="2xl"
+          bgGradient="linear(to-r, pink.500, pink.300, blue.500)"
+          bgClip="text"
+          p={2}
+          className="mainText"
+        >
+          PING.GG
         </Text>
       </Flex>
       <Box bg="white" w="100%" borderRadius="xl" borderWidth="5px" p={4}>
