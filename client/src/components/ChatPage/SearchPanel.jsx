@@ -21,6 +21,7 @@ import {
   Stack,
   Skeleton,
   Spinner,
+  Box,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { SearchIcon, BellIcon } from "@chakra-ui/icons";
@@ -180,36 +181,46 @@ const SearchPanel = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Search for a user</DrawerHeader>
+          <DrawerHeader>Search for an user</DrawerHeader>
 
           <DrawerBody>
             <Input
               placeholder="Type here..."
               onChange={(e) => handleSearch(e.target.value)}
+              mb={5}
             />
-            {loading ? (
-              <Stack>
-                <Skeleton height="50px" />
-                <Skeleton height="50px" />
-                <Skeleton height="50px" />
-                <Skeleton height="50px" />
-                <Skeleton height="50px" />
-                <Skeleton height="50px" />
-                <Skeleton height="50px" />
-                <Skeleton height="50px" />
-                <Skeleton height="50px" />
-                <Skeleton height="50px" />
-              </Stack>
-            ) : (
-              searchResult.map((user) => (
-                <UserListItem
-                  key={user._id}
-                  user={user}
-                  accessChatHandler={() => accessChat(user._id)}
-                />
-              ))
-            )}
-            {loadingChat && <Spinner ml="auto" d="flex" />}
+            <Box
+              width="100%"
+              // h="100%"
+              background="#37474F"
+              pt={10}
+              borderRadius="20px"
+              p={5}
+            >
+              {loading ? (
+                <Stack>
+                  <Skeleton height="50px" />
+                  <Skeleton height="50px" />
+                  <Skeleton height="50px" />
+                  <Skeleton height="50px" />
+                  <Skeleton height="50px" />
+                  <Skeleton height="50px" />
+                  <Skeleton height="50px" />
+                  <Skeleton height="50px" />
+                  <Skeleton height="50px" />
+                  <Skeleton height="50px" />
+                </Stack>
+              ) : (
+                searchResult.map((user) => (
+                  <UserListItem
+                    key={user._id}
+                    user={user}
+                    accessChatHandler={() => accessChat(user._id)}
+                  />
+                ))
+              )}
+              {loadingChat && <Spinner ml="auto" d="flex" />}
+            </Box>
           </DrawerBody>
         </DrawerContent>
       </Drawer>
