@@ -16,7 +16,7 @@ import { chatSliceActions } from "../../redux/chatSlice";
 import { getItem } from "../../helpers/localStorage";
 import GroupChatModal from "./GroupChatModal";
 
-const MyChat = () => {
+const MyChat = ({ fetchAgain }) => {
   //LOCAL STATE
   const [loggedUser, setLoggedUser] = useState();
   //REDUX
@@ -53,16 +53,16 @@ const MyChat = () => {
   useEffect(() => {
     setLoggedUser(getItem("userInfo"));
     fetchChats();
-  }, []);
+  }, [fetchAgain]);
 
   return (
     <Box
-      d={{ base: selectedChat === null ? "none" : "flex", md: "flex" }}
+      display={[selectedChat ? "none" : "flex", "flex"]}
       flexDir="column"
       alignItems="center"
       p={3}
       bg="white"
-      w={{ base: "100%", md: "31%" }}
+      w={["100%", "31%"]}
       borderRadius="lg"
       borderWidth="1px"
     >

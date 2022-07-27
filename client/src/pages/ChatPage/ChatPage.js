@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Box, Flex } from "@chakra-ui/react";
 import SearchPanel from "../../components/ChatPage/SearchPanel";
@@ -7,13 +7,14 @@ import ChatterBox from "../../components/ChatPage/ChatterBox";
 
 const ChatPage = () => {
   let user = useSelector((state) => state.userData);
+  const [fetchAgain, setFetchAgain] = useState(false);
 
   return (
     <Box w="100%">
       <SearchPanel />
       <Flex justifyContent="space-between" w="100%" h="91.5vh" p={4}>
-        <MyChat />
-        <ChatterBox />
+        <MyChat fetched={fetchAgain} />
+        <ChatterBox fetched={fetchAgain} setFetchAgain={setFetchAgain} />
       </Flex>
     </Box>
   );
