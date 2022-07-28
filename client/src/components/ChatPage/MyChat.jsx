@@ -51,7 +51,8 @@ const MyChat = ({ fetchAgain }) => {
   };
 
   useEffect(() => {
-    setLoggedUser(getItem("userInfo"));
+    // setLoggedUser(getItem("userInfo"));
+    setLoggedUser(user);
     fetchChats();
   }, [fetchAgain]);
 
@@ -110,7 +111,7 @@ const MyChat = ({ fetchAgain }) => {
               >
                 <Text>
                   {!chat.isGroupChat
-                    ? getSender(loggedUser, chat.users)
+                    ? getSender(user, chat.users)
                     : chat.chatName}
                 </Text>
               </Box>
