@@ -7,7 +7,7 @@ exports.registerUser = asyncHandler(async (req, res) => {
 
   if (!name || !email || !password) {
     res.status(400);
-    throw new Error("Please enter all the required field");
+    throw new Error("Please enter all the required fields");
   }
 
   const userExist = await User.findOne({ email });

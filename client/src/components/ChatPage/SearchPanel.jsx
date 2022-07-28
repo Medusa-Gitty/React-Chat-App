@@ -112,7 +112,6 @@ const SearchPanel = () => {
       if (!chats.find((chat) => chat._id === data._id)) {
         dispatch(chatSliceActions.setChats([data, ...chats]));
       }
-      console.log(data);
       dispatch(chatSliceActions.setSelectedChat(data));
       setLoadingChat(false);
       onClose();
