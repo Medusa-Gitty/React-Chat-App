@@ -1,7 +1,6 @@
 import {
   Avatar,
   Button,
-  Divider,
   Flex,
   Menu,
   MenuButton,
@@ -21,7 +20,6 @@ import {
   Stack,
   Skeleton,
   Spinner,
-  Box,
   Image,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
@@ -152,22 +150,30 @@ const SearchPanel = () => {
         </Text>
         <Flex>
           <Menu>
-            <MenuButton as={Button} rightIcon={<BellIcon />}></MenuButton>
+            <MenuButton p={1}>
+              <BellIcon fontSize="2xl" m={1} color="white" />
+            </MenuButton>
             <MenuList>
               <MenuItem>Download</MenuItem>
             </MenuList>
           </Menu>
-          <Divider orientation="vertical" />
           <Menu>
-            <MenuButton as={Button} borderRadius="5%">
-              <Avatar size="sm" name={userData.name} src={userData.pic} />
+            <MenuButton as={Button} bg="black">
+              <Avatar
+                size="sm"
+                cursor="pointer"
+                name={userData.name}
+                src={userData.pic}
+              />
             </MenuButton>
             <MenuList>
               <ProfileModal user={userData}>
                 <MenuItem>My Profile</MenuItem>
               </ProfileModal>
               <MenuDivider />
-              <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+              <MenuItem onClick={logoutHandler} color="red">
+                Logout
+              </MenuItem>
             </MenuList>
           </Menu>
         </Flex>
