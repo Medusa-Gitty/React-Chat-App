@@ -22,6 +22,7 @@ import {
   Skeleton,
   Spinner,
   Box,
+  Image,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { SearchIcon, BellIcon } from "@chakra-ui/icons";
@@ -29,11 +30,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeItem } from "../../helpers/localStorage";
 import ProfileModal from "./ProfileModal";
 import UserListItem from "../User/UserListItem";
-import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 import axios from "axios";
 import { chatSliceActions } from "../../redux/chatSlice";
 import { userSliceActions } from "../../redux/userSlice";
+import bg from "../../assets/images/bg6.jpg";
 
 const SearchPanel = () => {
   //LOCAL States
@@ -183,44 +184,56 @@ const SearchPanel = () => {
           <DrawerCloseButton />
           <DrawerHeader>Search for an user</DrawerHeader>
 
-          <DrawerBody>
+          <DrawerBody
+            position="relative"
+            display="inline-block"
+            overflow="hidden"
+            margin="0"
+          >
             <Input
               placeholder="Type here..."
               onChange={(e) => handleSearch(e.target.value)}
               mb={5}
             />
-            <Box
-              width="100%"
-              // h="100%"
-              background="#37474F"
-              pt={10}
-              borderRadius="20px"
-              p={5}
-            >
-              {loading ? (
-                <Stack>
-                  <Skeleton height="50px" />
-                  <Skeleton height="50px" />
-                  <Skeleton height="50px" />
-                  <Skeleton height="50px" />
-                  <Skeleton height="50px" />
-                  <Skeleton height="50px" />
-                  <Skeleton height="50px" />
-                  <Skeleton height="50px" />
-                  <Skeleton height="50px" />
-                  <Skeleton height="50px" />
-                </Stack>
-              ) : (
-                searchResult.map((user) => (
-                  <UserListItem
-                    key={user._id}
-                    user={user}
-                    accessChatHandler={() => accessChat(user._id)}
-                  />
-                ))
-              )}
-              {loadingChat && <Spinner ml="auto" d="flex" />}
-            </Box>
+
+            {loading ? (
+              <Stack>
+                <Skeleton height="50px" />
+                <Skeleton height="50px" />
+                <Skeleton height="50px" />
+                <Skeleton height="50px" />
+                <Skeleton height="50px" />
+              </Stack>
+            ) : (
+              searchResult.map((user) => (
+                <UserListItem
+                  key={user._id}
+                  user={user}
+                  accessChatHandler={() => accessChat(user._id)}
+                />
+              ))
+            )}
+            {loadingChat && (
+              <Spinner
+                display="flex"
+                m="auto"
+                thickness="5px"
+                speed="0.90s"
+                emptyColor="gray.200"
+                color="green.500"
+                size="xl"
+              />
+            )}
+            <Image
+              src={bg}
+              display="block"
+              position="absolute"
+              left="50%"
+              bottom="0"
+              min-height="100%"
+              min-width="100%"
+              transform="translate(-50%)"
+            />
           </DrawerBody>
         </DrawerContent>
       </Drawer>

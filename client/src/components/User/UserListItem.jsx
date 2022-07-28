@@ -29,9 +29,9 @@ const UserListItem = (props) => {
           name={user.name}
           src={user.pic}
         />
-        <Text>{user.name}</Text>
+        <Text fontWeight="bold">{user.name}</Text>
       </Flex>
-      <Text fontSize="xs">
+      <Text fontSize="sm">
         <b>Email : </b>
         {user.email}
       </Text>
