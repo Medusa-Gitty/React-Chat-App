@@ -6,7 +6,7 @@ const auth = asyncHandler(async (req, res, next) => {
   let token;
   if (
     req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer ")
+    req.headers.authorization.startsWith("Bearer")
   ) {
     try {
       //Getting the token excluding bearer
