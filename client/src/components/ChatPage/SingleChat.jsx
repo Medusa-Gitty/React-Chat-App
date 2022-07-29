@@ -18,6 +18,8 @@ import EditGroupChatModal from "./EditGroupChatModal";
 import axios from "axios";
 import ScrollableChat from "./ScrollableChat";
 import io from "socket.io-client";
+import Lottie from "lottie-react";
+import typingAnimation from "../../assets/animatons/typing.json";
 
 const ENDPOINT = "http://localhost:5000";
 var socket;
@@ -135,7 +137,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
 
-    // if (!socketConnected) return;
+    if (!socketConnected) return;
 
     if (!typing) {
       setTyping(true);
@@ -216,7 +218,16 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               </Flex>
             )}
             <FormControl onKeyDown={sendMessage} isRequired mt={3}>
-              {isTyping ? <div>Loading...</div> : <></>}
+              {isTyping ? (
+                <Lottie
+                  animationData={typingAnimation}
+                  loop={true}
+                  width={70}
+                  style={{ marginBottom: 15, marginLeft: 0 }}
+                />
+              ) : (
+                <></>
+              )}
               <Input
                 variant="filled"
                 bg="#E0E0E0"
