@@ -9,13 +9,14 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSender, getSenderFull } from "../../helpers/chatLogics";
 import ProfileModal from "./ProfileModal";
 import { chatSliceActions } from "../../redux/chatSlice";
 import EditGroupChatModal from "./EditGroupChatModal";
 import axios from "axios";
+import ScrollableChat from "./ScrollableChat";
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   //REDUX
@@ -70,6 +71,40 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     setNewMessage(e.target.value);
   };
 
+  const fetchMessages = async () => {
+    console.log(selectedChat);
+    if (!selectedChat) {
+      return;
+    }
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      setLoading(true);
+      const { data } = await axios.get(
+        `http://localhost:5000/api/message/${selectedChat._id}`,
+        config
+      );
+      setMessages(data);
+      setLoading(false);
+    } catch (error) {
+      toast({
+        title: "Error Occured!",
+        description: "Failed to Load the Messages",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "bottom",
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchMessages();
+  }, [selectedChat]);
+
   return (
     <>
       {selectedChat ? (
@@ -98,7 +133,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               <>
                 {selectedChat.chatName.toUpperCase()}
                 <EditGroupChatModal
-                  // fetchMessages={fetchMessages}
+                  fetchMessages={fetchMessages}
                   fetchAgain={fetchAgain}
                   setFetchAgain={setFetchAgain}
                 />
@@ -128,7 +163,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 color="green.500"
               />
             ) : (
-              <div>{/* messages */}</div>
+              <Flex dir="column">
+                <ScrollableChat messages={messages} />
+              </Flex>
             )}
             <FormControl onKeyDown={sendMessage} isRequired mt={3}>
               <Input
