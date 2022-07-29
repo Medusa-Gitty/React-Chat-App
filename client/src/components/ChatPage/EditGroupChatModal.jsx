@@ -21,7 +21,7 @@ import axios from "axios";
 import { chatSliceActions } from "../../redux/chatSlice";
 import UserListItem from "../User/UserListItem";
 
-const EditGroupChatModal = ({ fetchAgain, setFetchAgain }) => {
+const EditGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
   //LOCAL STATES
   const [groupChatName, setGroupChatName] = useState("");
   const [searchResult, setSearchResult] = useState([]);
@@ -193,6 +193,7 @@ const EditGroupChatModal = ({ fetchAgain, setFetchAgain }) => {
         ? dispatch(chatSliceActions.setSelectedChat(null))
         : dispatch(chatSliceActions.setSelectedChat(data));
       setFetchAgain(!fetchAgain);
+      fetchMessages();
       setLoading(false);
     } catch (error) {
       toast({
