@@ -1,9 +1,12 @@
 import {
+  Box,
   Button,
   Flex,
   FormControl,
   IconButton,
   Input,
+  InputGroup,
+  InputRightElement,
   Spinner,
   Text,
   useToast,
@@ -20,7 +23,7 @@ import axios from "axios";
 import ScrollableChat from "./ScrollableChat";
 import io from "socket.io-client";
 import Lottie from "lottie-react";
-import typingAnimation from "../../assets/animatons/typing.json";
+import typingAnimation from "../../assets/animatons/typing2.json";
 
 const ENDPOINT = "http://localhost:5000";
 var socket;
@@ -171,11 +174,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     <>
       {selectedChat ? (
         <>
-          <Flex
+          <Text
             fontSize={["28px", "30px"]}
             pb={3}
             px={2}
             w="100%"
+            display="flex"
             justifyContent="space-between"
             alignItems="center"
           >
@@ -193,7 +197,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               </>
             ) : (
               <>
-                {selectedChat.chatName.toUpperCase()}
+                {selectedChat.chatName}
                 <EditGroupChatModal
                   fetchMessages={fetchMessages}
                   fetchAgain={fetchAgain}
@@ -201,7 +205,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 />
               </>
             )}
-          </Flex>
+          </Text>
           <Flex
             flexDir="column"
             justifyContent="flex-end"
@@ -230,27 +234,41 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 color="green.500"
               />
             ) : (
-              <Flex dir="column">
+              <Box>
                 <ScrollableChat messages={messages} />
-              </Flex>
+              </Box>
             )}
             <FormControl onKeyDown={sendMessage} isRequired mt={3}>
               {isTyping ? (
-                <Lottie
-                  animationData={typingAnimation}
-                  loop={true}
-                  width={70}
-                  style={{ marginBottom: 15, marginLeft: 0 }}
-                />
+                <Box>
+                  <Lottie
+                    animationData={typingAnimation}
+                    loop={true}
+                    style={{
+                      width: "70px",
+                    }}
+                  />
+                </Box>
               ) : (
                 <></>
               )}
-              <Input
-                variant="filled"
-                placeholder="Enter a message.."
-                value={newMessage}
-                onChange={typingHandler}
-              />
+              <Flex gap={2}>
+                <Input
+                  variant="filled"
+                  placeholder="Enter a message.."
+                  value={newMessage}
+                  onChange={typingHandler}
+                />
+                <Button
+                  colorScheme="teal"
+                  variant="outline"
+                  onClick={() => {
+                    sendMessage({ key: "Enter" });
+                  }}
+                >
+                  Send
+                </Button>
+              </Flex>
             </FormControl>
           </Flex>
         </>
