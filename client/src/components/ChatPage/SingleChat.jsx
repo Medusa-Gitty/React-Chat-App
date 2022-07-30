@@ -5,13 +5,11 @@ import {
   FormControl,
   IconButton,
   Input,
-  InputGroup,
-  InputRightElement,
   Spinner,
   Text,
   useToast,
 } from "@chakra-ui/react";
-import { ArrowBackIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, InfoIcon } from "@chakra-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSender, getSenderFull } from "../../helpers/chatLogics";
@@ -174,8 +172,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     <>
       {selectedChat ? (
         <>
-          <Text
-            fontSize={["28px", "30px"]}
+          <Flex
+            fontSize={["25px", "30px"]}
             pb={3}
             px={2}
             w="100%"
@@ -184,7 +182,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             alignItems="center"
           >
             <IconButton
-              d={["flex", "none"]}
+              display={["flex", "none"]}
+              isRound
               icon={<ArrowBackIcon />}
               onClick={handleBack}
             />
@@ -192,7 +191,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               <>
                 {getSender(user, selectedChat.users)}
                 <ProfileModal user={getSenderFull(user, selectedChat.users)}>
-                  <Button>View User</Button>
+                  <IconButton isRound icon={<InfoIcon w={6} h={6} />} />
                 </ProfileModal>
               </>
             ) : (
@@ -205,7 +204,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 />
               </>
             )}
-          </Text>
+          </Flex>
           <Flex
             flexDir="column"
             justifyContent="flex-end"
@@ -234,7 +233,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 color="green.500"
               />
             ) : (
-              <Box>
+              <Box className="scrollable">
                 <ScrollableChat messages={messages} />
               </Box>
             )}
