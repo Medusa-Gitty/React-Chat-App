@@ -3,6 +3,13 @@ export const getSender = (loggedUser, usersArray) => {
     ? usersArray[1].name
     : usersArray[0].name;
 };
+
+export const getSenderPic = (loggedUser, usersArray) => {
+  return usersArray[0]._id === loggedUser._id
+    ? usersArray[1].pic
+    : usersArray[0].pic;
+};
+
 export const getSenderFull = (loggedUser, usersArray) => {
   return usersArray[0]._id === loggedUser._id ? usersArray[1] : usersArray[0];
 };

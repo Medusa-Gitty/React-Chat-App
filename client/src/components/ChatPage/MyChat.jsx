@@ -1,5 +1,6 @@
 import { AddIcon } from "@chakra-ui/icons";
 import {
+  Avatar,
   Box,
   Button,
   Flex,
@@ -11,7 +12,7 @@ import {
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getSender } from "../../helpers/chatLogics";
+import { getSender, getSenderPic } from "../../helpers/chatLogics";
 import { chatSliceActions } from "../../redux/chatSlice";
 import { getItem } from "../../helpers/localStorage";
 import GroupChatModal from "./GroupChatModal";
@@ -56,6 +57,8 @@ const MyChat = ({ fetchAgain }) => {
     fetchChats();
   }, [fetchAgain]);
 
+  console.log(chats);
+
   return (
     <Box
       display={[selectedChat ? "none" : "flex", "flex"]}
@@ -82,7 +85,7 @@ const MyChat = ({ fetchAgain }) => {
             fontSize={["17px", "10px", "17px"]}
             rightIcon={<AddIcon />}
           >
-            New Group Chat
+            Create a party !
           </Button>
         </GroupChatModal>
       </Flex>
@@ -99,22 +102,36 @@ const MyChat = ({ fetchAgain }) => {
         {chats ? (
           <Stack overflowY="scroll">
             {chats.map((chat) => (
-              <Box
-                onClick={() => dispatch(chatSliceActions.setSelectedChat(chat))}
-                cursor="pointer"
-                bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
-                color={selectedChat === chat ? "white" : "black"}
-                px={3}
-                py={2}
-                borderRadius="lg"
-                key={chat._id}
-              >
-                <Text>
-                  {!chat.isGroupChat
-                    ? getSender(user, chat.users)
-                    : chat.chatName}
-                </Text>
-              </Box>
+              <Flex direction="column" key={chat._id} gap={2}>
+                <Flex gap={3}>
+                  <Avatar
+                    name={chat.chatName}
+                    src={!chat.isGroupChat && getSenderPic(user, chat.users)}
+                    border="2px solid #4CAF50"
+                    p="2px"
+                    backgroundColor="white"
+                  />
+                  <Box
+                    onClick={() =>
+                      dispatch(chatSliceActions.setSelectedChat(chat))
+                    }
+                    cursor="pointer"
+                    bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                    color={selectedChat === chat ? "white" : "black"}
+                    px={3}
+                    py={2}
+                    borderRadius="lg"
+                    width="100%"
+                  >
+                    <Text fontSize="lg">
+                      {!chat.isGroupChat
+                        ? getSender(user, chat.users)
+                        : chat.chatName}
+                    </Text>
+                  </Box>
+                </Flex>
+                <hr />
+              </Flex>
             ))}
           </Stack>
         ) : (
