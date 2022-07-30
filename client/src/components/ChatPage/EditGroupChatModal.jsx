@@ -14,12 +14,14 @@ import {
   FormControl,
   Input,
   Spinner,
+  IconButton,
 } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import UserBadgeItem from "./../User/UserBadgeItem";
 import axios from "axios";
 import { chatSliceActions } from "../../redux/chatSlice";
 import UserListItem from "../User/UserListItem";
+import { SettingsIcon } from "@chakra-ui/icons";
 
 const EditGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
   //LOCAL STATES
@@ -210,8 +212,7 @@ const EditGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
 
   return (
     <>
-      <Button onClick={onOpen}>Settings</Button>
-
+      <IconButton isRound onClick={onOpen} icon={<SettingsIcon />} />
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
