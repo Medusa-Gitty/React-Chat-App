@@ -14,8 +14,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getSender, getSenderPic } from "../../helpers/chatLogics";
 import { chatSliceActions } from "../../redux/chatSlice";
-import { getItem } from "../../helpers/localStorage";
 import GroupChatModal from "./GroupChatModal";
+import "./styles.scss";
 
 const MyChat = ({ fetchAgain }) => {
   //LOCAL STATE
@@ -57,8 +57,6 @@ const MyChat = ({ fetchAgain }) => {
     fetchChats();
   }, [fetchAgain]);
 
-  console.log(chats);
-
   return (
     <Box
       display={[selectedChat ? "none" : "flex", "flex"]}
@@ -73,7 +71,7 @@ const MyChat = ({ fetchAgain }) => {
       <Flex
         pb={3}
         px={3}
-        fontSize={["28px", "30px"]}
+        fontSize={["25px", "30px"]}
         w="100%"
         justifyContent="space-between"
         alignItems="center"
@@ -82,32 +80,37 @@ const MyChat = ({ fetchAgain }) => {
         <GroupChatModal>
           <Button
             d="flex"
-            fontSize={["17px", "10px", "17px"]}
+            fontSize={["15px", "17px"]}
+            colorScheme="teal"
+            variant="outline"
             rightIcon={<AddIcon />}
           >
             Create a party !
           </Button>
         </GroupChatModal>
       </Flex>
-      <Box
-        d="flex"
+      <Flex
+        style={{
+          backgroundImage: `url(${require("../../assets/images/bg7.jpg")})`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
         flexDir="column"
         p={3}
-        bg="#F8F8F8"
         w="100%"
         h="100%"
         borderRadius="lg"
         overflowY="hidden"
       >
         {chats ? (
-          <Stack overflowY="scroll">
+          <Stack overflowY="scroll" gap={1}>
             {chats.map((chat) => (
-              <Flex direction="column" key={chat._id} gap={2}>
+              <Flex direction="column" key={chat._id} gap={3}>
                 <Flex gap={3}>
                   <Avatar
                     name={chat.chatName}
                     src={!chat.isGroupChat && getSenderPic(user, chat.users)}
-                    border="2px solid #4CAF50"
+                    border="3px solid #81C784"
                     p="2px"
                     backgroundColor="white"
                   />
@@ -148,7 +151,7 @@ const MyChat = ({ fetchAgain }) => {
             <Skeleton height="50px" />
           </Stack>
         )}
-      </Box>
+      </Flex>
     </Box>
   );
 };

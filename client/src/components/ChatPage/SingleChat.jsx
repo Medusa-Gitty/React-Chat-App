@@ -206,6 +206,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             flexDir="column"
             justifyContent="flex-end"
             p={3}
+            style={{
+              backgroundImage: `url(${require("../../assets/images/bg9.jpg")})`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+            }}
             bg="#E8E8E8"
             w="100%"
             h="100%"
@@ -242,7 +247,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               )}
               <Input
                 variant="filled"
-                bg="#E0E0E0"
                 placeholder="Enter a message.."
                 value={newMessage}
                 onChange={typingHandler}
@@ -251,7 +255,18 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           </Flex>
         </>
       ) : (
-        <Flex alignItems="center" justifyContent="center" h="100%">
+        <Flex
+          alignItems="center"
+          justifyContent="center"
+          h="100%"
+          w="100%"
+          borderRadius="lg"
+          style={{
+            backgroundImage: `url(${require("../../assets/images/bg9.jpg")})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+        >
           <Text fontSize="3xl" pb={3}>
             Click on a user to start chatting
           </Text>

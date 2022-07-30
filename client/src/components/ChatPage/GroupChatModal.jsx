@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   FormControl,
   Input,
@@ -68,13 +69,14 @@ const GroupChatModal = ({ children }) => {
       toast({
         title: "User already added",
         status: "warning",
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
-        position: "top",
+        position: "bottom",
       });
       return;
+    } else {
+      setSelectedUsers([...selectedUsers, user]);
     }
-    setSelectedUsers([...selectedUsers, user]);
   };
 
   const handleDelete = (user) => {
@@ -143,8 +145,8 @@ const GroupChatModal = ({ children }) => {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader fontSize="35px" d="flex" justifyContent="center">
+        <ModalContent top={"25%"} margin="10px">
+          <ModalHeader fontSize="30px" d="flex" justifyContent="center">
             Create Group Chat
           </ModalHeader>
           <ModalCloseButton />
@@ -159,7 +161,7 @@ const GroupChatModal = ({ children }) => {
             <FormControl>
               <Input
                 placeholder="Add Group Members"
-                mb={1}
+                mb={3}
                 onChange={(e) => handleSearch(e.target.value)}
               />
             </FormControl>
@@ -171,7 +173,13 @@ const GroupChatModal = ({ children }) => {
               />
             ))}
             {loading ? (
-              <Spinner />
+              <Spinner
+                size="xl"
+                display="flex"
+                m="auto"
+                thickness="5px"
+                color="green.500"
+              />
             ) : (
               searchResult
                 ?.slice(0, 4)
