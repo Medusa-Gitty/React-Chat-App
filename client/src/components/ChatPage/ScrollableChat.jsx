@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 const ScrollableChat = ({ messages }) => {
   const user = useSelector((state) => state.userData.userData);
   return (
-    <Box>
+    <Box className="scrollable">
       {messages &&
         messages.map((message, i) => (
           <Flex key={message._id}>
@@ -34,14 +34,16 @@ const ScrollableChat = ({ messages }) => {
               </Tooltip>
             )}
             <Text
-              backgroundColor={
-                message.sender._id === user._id ? "#BEE3F8" : "#B9F5D0"
-              }
-              marginLeft={isSameSenderMargin(messages, message, i, user._id)}
-              marginTop={isSameUser(messages, message, i, user._id) ? 3 : 10}
-              borderRadius="20px"
-              p="5px 15px"
-              maxWidth="75%"
+              style={{
+                backgroundColor: `${
+                  message.sender._id === user._id ? "#BEE3F8" : "#B9F5D0"
+                }`,
+                marginLeft: isSameSenderMargin(messages, message, i, user._id),
+                marginTop: isSameUser(messages, message, i, user._id) ? 3 : 10,
+                borderRadius: "20px",
+                padding: "5px 15px",
+                maxWidth: "75%",
+              }}
             >
               {message.content}
             </Text>
