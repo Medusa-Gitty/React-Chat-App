@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSender, getSenderFull } from "../../helpers/chatLogics";
 import ProfileModal from "./ProfileModal";
 import { chatSliceActions } from "../../redux/chatSlice";
+import { notificationSliceActions } from "../../redux/notificationSlice";
 import EditGroupChatModal from "./EditGroupChatModal";
 import axios from "axios";
 import ScrollableChat from "./ScrollableChat";
@@ -30,6 +31,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userData.userData);
   const { selectedChat } = useSelector((state) => state.chatData);
+  const notification = useSelector(
+    (state) => state.notificationData.notificationData
+  );
   //LOCAL STATES
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -121,13 +125,23 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     selectedChatCompare = selectedChat;
   }, [selectedChat]);
 
+  console.log(notification, "--------------------");
+
   useEffect(() => {
     socket.on("message received", (newMessage) => {
       if (
         !selectedChatCompare ||
         selectedChatCompare._id !== newMessage.chat._id
       ) {
-        //Notfication
+        if (!notification.includes(newMessage)) {
+          dispatch(
+            notificationSliceActions.setNotification([
+              newMessage,
+              ...notification,
+            ])
+          );
+          setFetchAgain(!fetchAgain);
+        }
       } else {
         setMessages([...messages, newMessage]);
       }
