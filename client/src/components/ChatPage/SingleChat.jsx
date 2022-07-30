@@ -125,8 +125,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     selectedChatCompare = selectedChat;
   }, [selectedChat]);
 
-  console.log(notification, "--------------------");
-
   useEffect(() => {
     socket.on("message received", (newMessage) => {
       if (

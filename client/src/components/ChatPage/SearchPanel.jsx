@@ -21,6 +21,7 @@ import {
   Skeleton,
   Spinner,
   Image,
+  Badge,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { SearchIcon, BellIcon } from "@chakra-ui/icons";
@@ -32,7 +33,9 @@ import { debounce } from "lodash";
 import axios from "axios";
 import { chatSliceActions } from "../../redux/chatSlice";
 import { userSliceActions } from "../../redux/userSlice";
+import { notificationSliceActions } from "../../redux/notificationSlice";
 import bg from "../../assets/images/bg6.jpg";
+import { getSender } from "../../helpers/chatLogics";
 
 const SearchPanel = () => {
   //LOCAL States
@@ -43,16 +46,26 @@ const SearchPanel = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userData.userData);
   const { chats } = useSelector((state) => state.chatData);
+  const notification = useSelector(
+    (state) => state.notificationData.notificationData
+  );
   //MISC
   const toast = useToast();
   const btnRef = React.useRef();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const logoutHandler = () => {
-    //Remove from Local Storage
     removeItem("userInfo");
-    //remove from REDUX
     dispatch(userSliceActions.setUser(""));
+  };
+
+  const openChatFromNotification = (n) => {
+    dispatch(chatSliceActions.setSelectedChat(n.chat));
+    dispatch(
+      notificationSliceActions.setNotification(
+        notification.filter((notif) => notif !== n)
+      )
+    );
   };
 
   //ALL USERS in DB Search with DEBOUNCING
@@ -151,10 +164,23 @@ const SearchPanel = () => {
         <Flex>
           <Menu>
             <MenuButton p={1}>
+              <Badge ml="1" colorScheme="green">
+                {notification.length}
+              </Badge>
               <BellIcon fontSize="2xl" m={1} color="white" />
             </MenuButton>
-            <MenuList>
-              <MenuItem>Download</MenuItem>
+            <MenuList pl={2}>
+              {!notification.length && "No new messages"}
+              {notification.map((n) => (
+                <MenuItem
+                  key={n._id}
+                  onClick={() => openChatFromNotification(n)}
+                >
+                  {n.chat.isGroupChat
+                    ? `New message in ${n.chat.chatName}`
+                    : `New message from ${getSender(userData, n.chat.users)}`}
+                </MenuItem>
+              ))}
             </MenuList>
           </Menu>
           <Menu>
