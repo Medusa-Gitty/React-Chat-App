@@ -12,17 +12,8 @@ import {
 } from "@chakra-ui/react";
 import Login from "../../components/Authentication/Login";
 import SignUp from "../../components/Authentication/SignUp";
-import "./homepage.scss";
 
 const HomePage = () => {
-  // const navigate = useNavigate();
-  // const data = useSelector((state) => state.userData.userData);
-  // useEffect(() => {
-  //   if (data !== "") {
-  //     navigate("/chats");
-  //   }
-  // }, [navigate, data]);
-
   return (
     <Container maxW="xl" centerContent>
       <Flex

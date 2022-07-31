@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   FormControl,
   Input,
@@ -20,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import UserBadgeItem from "../User/UserBadgeItem";
 import UserListItem from "../User/UserListItem";
 import { chatSliceActions } from "../../redux/chatSlice";
+import { debounce } from "lodash";
 
 const GroupChatModal = ({ children }) => {
   //LOCAL STATE
@@ -35,7 +35,7 @@ const GroupChatModal = ({ children }) => {
   const user = useSelector((state) => state.userData.userData);
   const { chats } = useSelector((state) => state.chatData);
 
-  const handleSearch = async (text) => {
+  const handleSearch = debounce(async (text) => {
     if (!text) {
       return;
     }
@@ -62,7 +62,7 @@ const GroupChatModal = ({ children }) => {
         position: "bottom",
       });
     }
-  };
+  }, 1000);
 
   const handleGroup = (user) => {
     if (selectedUsers.includes(user)) {
@@ -118,6 +118,8 @@ const GroupChatModal = ({ children }) => {
         },
         config
       );
+      setSelectedUsers([]);
+      setSearchResult([]);
       dispatch(chatSliceActions.setChats([data, ...chats]));
       onClose();
       toast({
@@ -146,10 +148,21 @@ const GroupChatModal = ({ children }) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent top={"25%"} margin="10px">
-          <ModalHeader fontSize="30px" d="flex" justifyContent="center">
+          <ModalHeader
+            fontSize="30px"
+            d="flex"
+            justifyContent="center"
+            style={{
+              backgroundImage: `url(${require("../../assets/images/bg12.jpg")})`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+            }}
+            borderTopRadius="6px"
+            color="white"
+          >
             Create Group Chat
           </ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton color="white" />
           <ModalBody d="flex" flexDir="column" alignItems="center">
             <FormControl>
               <Input

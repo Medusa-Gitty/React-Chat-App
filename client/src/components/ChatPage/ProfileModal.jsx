@@ -43,29 +43,39 @@ const ProfileModal = ({ user, children }) => {
               padding="5px"
             />
           </ModalBody>
-          <Box bg="white">
-            <Text
-              align="center"
-              fontSize="xl"
-              marginTop="20px"
-              fontWeight="bold"
-            >
-              {user.name}
-            </Text>
-            <Text align="center" fontSize={["rg", "xl"]} marginTop="10px">
-              <strong>Email</strong> : {user.email}
-            </Text>
+          <Box
+            style={{
+              backgroundImage: `url(${require("../../assets/images/bg12.jpg")})`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+            }}
+            color="white"
+            borderBottomRadius="5px"
+          >
+            <Box>
+              <Text
+                align="center"
+                fontSize="xl"
+                marginTop="20px"
+                fontWeight="bold"
+              >
+                {user.name}
+              </Text>
+              <Text align="center" fontSize={["rg", "xl"]} marginTop="10px">
+                <strong>Email</strong> : {user.email}
+              </Text>
+            </Box>
+            <ModalFooter borderRadius={5}>
+              <Button
+                mr={3}
+                onClick={onClose}
+                colorScheme="teal"
+                variant="outline"
+              >
+                Close
+              </Button>
+            </ModalFooter>
           </Box>
-          <ModalFooter bg="white" borderRadius={5}>
-            <Button
-              mr={3}
-              onClick={onClose}
-              colorScheme="teal"
-              variant="outline"
-            >
-              Close
-            </Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </div>

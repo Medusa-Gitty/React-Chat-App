@@ -5,7 +5,7 @@
 .App {
   min-height: 100vh;
   display: flex;
-  background-image: url("./assets/images/bg2.jpg");
+  background-image: url("./assets/images/bg10.jpg");
   background-size: cover;
   background-position: center;
 }
