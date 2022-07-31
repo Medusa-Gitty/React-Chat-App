@@ -15,6 +15,7 @@ import {
   Input,
   Spinner,
   IconButton,
+  Text,
 } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import UserBadgeItem from "./../User/UserBadgeItem";
@@ -197,6 +198,13 @@ const EditGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
       setFetchAgain(!fetchAgain);
       fetchMessages();
       setLoading(false);
+      toast({
+        title: `Removed ${userToRemove.name} from Party`,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+        position: "bottom",
+      });
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -215,7 +223,7 @@ const EditGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
       <IconButton isRound onClick={onOpen} icon={<SettingsIcon />} />
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent margin="20px">
           <ModalHeader fontSize="35px" display="flex" justifyContent="center">
             {selectedChat.chatName}
           </ModalHeader>
@@ -231,15 +239,16 @@ const EditGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
                 />
               ))}
             </Flex>
-            <FormControl d="flex">
+
+            <FormControl display="flex">
               <Input
-                placeholder="Chat Name"
+                placeholder="Change party name"
                 mb={3}
                 value={groupChatName}
                 onChange={(e) => setGroupChatName(e.target.value)}
               />
               <Button
-                variant="solid"
+                variant="outline"
                 colorScheme="teal"
                 ml={1}
                 isLoading={renameloading}
@@ -255,6 +264,15 @@ const EditGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
                 onChange={(e) => handleSearch(e.target.value)}
               />
             </FormControl>
+            <Text
+              fontSize="sm"
+              width="100%"
+              color="red"
+              fontStyle="italic"
+              p={1}
+            >
+              Only Admins can add or remove members from a party !
+            </Text>
             {loading ? (
               <Spinner size="lg" />
             ) : (
@@ -267,10 +285,13 @@ const EditGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
               ))
             )}
           </ModalBody>
-
           <ModalFooter>
-            <Button onClick={() => handleRemove(user)} colorScheme="red">
-              Leave Group
+            <Button
+              onClick={() => handleRemove(user)}
+              colorScheme="red"
+              variant="solid"
+            >
+              Leave Party
             </Button>
           </ModalFooter>
         </ModalContent>
