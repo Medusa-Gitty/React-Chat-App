@@ -20,22 +20,39 @@ const ProfileModal = ({ user, children }) => {
       {children && <span onClick={onOpen}>{children}</span>}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent top={"25%"} margin="10px">
-          <ModalHeader>{user.name}</ModalHeader>
+        <ModalContent top={"25%"} margin="20px">
+          <ModalHeader></ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Image
               src={user.pic}
               borderRadius="50%"
-              width="150px"
+              width="200px"
+              height="200px"
               margin="auto"
+              border="3px solid #4CAF50"
+              padding="5px"
             />
-            <Text align="center" fontSize="xl" marginTop="20px">
-              Email : {user.email}
+
+            <Text
+              align="center"
+              fontSize="xl"
+              marginTop="20px"
+              fontWeight="bold"
+            >
+              {user.name}
+            </Text>
+            <Text align="center" fontSize={["rg", "xl"]} marginTop="10px">
+              <strong>Email</strong> : {user.email}
             </Text>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button
+              mr={3}
+              onClick={onClose}
+              colorScheme="teal"
+              variant="outline"
+            >
               Close
             </Button>
           </ModalFooter>
