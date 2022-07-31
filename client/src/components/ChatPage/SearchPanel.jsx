@@ -63,15 +63,21 @@ const SearchPanel = () => {
 
   const logoutHandler = () => {
     removeItem("userInfo");
+    removeItem("notifications");
     dispatch(userSliceActions.setUser(""));
   };
 
   const openChatFromNotification = (n) => {
     dispatch(chatSliceActions.setSelectedChat(n.chat));
-    dispatch(
-      notificationSliceActions.setNotification(
-        notification.filter((notif) => notif !== n)
-      )
+    const filteredNotifications = notification.filter(
+      (notif) => notif.chat._id !== n.chat._id
+    );
+    //SAVE NEW NOTIFICATIONS TO REDUX
+    dispatch(notificationSliceActions.setNotification(filteredNotifications));
+    //SAVE NEW NOTIFICATIONS TO LS
+    localStorage.setItem(
+      "notifications",
+      JSON.stringify(filteredNotifications)
     );
   };
 
@@ -174,7 +180,6 @@ const SearchPanel = () => {
             <MenuButton p={1}>
               {notification.length && (
                 <Badge ml="1" colorScheme="green">
-                  {/* {notification.length} */}
                   {notificationFreq(notification)}
                 </Badge>
               )}
@@ -261,8 +266,8 @@ const SearchPanel = () => {
             )}
             {!loading && searchResult.length === 0 && searchQuery !== "" && (
               <>
-                <Text width="100%" align="center">
-                  Couldnt find anyone for : {searchQuery}
+                <Text width="100%" align="center" color="red">
+                  No results found for : {searchQuery}
                 </Text>
                 <Lottie animationData={noResultsAnimation} loop={true} />
               </>

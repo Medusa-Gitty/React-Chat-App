@@ -1,4 +1,4 @@
-import { AddIcon } from "@chakra-ui/icons";
+import { AddIcon, ChatIcon } from "@chakra-ui/icons";
 import {
   Avatar,
   Box,
@@ -16,7 +16,8 @@ import { getSender, getSenderPic } from "../../helpers/chatLogics";
 import { chatSliceActions } from "../../redux/chatSlice";
 import GroupChatModal from "./GroupChatModal";
 import "./styles.scss";
-
+import { notificationMark } from "../../helpers/notificationHelper";
+import { notificationSliceActions } from "../../redux/notificationSlice";
 const MyChat = () => {
   //LOCAL STATE
   const [loggedUser, setLoggedUser] = useState();
@@ -25,6 +26,7 @@ const MyChat = () => {
   const user = useSelector((state) => state.userData.userData);
   const { chats, selectedChat } = useSelector((state) => state.chatData);
   const { fetchAgain } = useSelector((state) => state.fetchAgain);
+  const { notificationData } = useSelector((state) => state.notificationData);
   //MISC
   const toast = useToast();
 
@@ -50,6 +52,20 @@ const MyChat = () => {
         position: "bottom-left",
       });
     }
+  };
+
+  const openChatFromMyChat = (chat) => {
+    dispatch(chatSliceActions.setSelectedChat(chat));
+    const filteredNotifications = notificationData.filter(
+      (notif) => notif.chat._id !== chat._id
+    );
+    //SAVE NEW NOTIFICATIONS TO REDUX
+    dispatch(notificationSliceActions.setNotification(filteredNotifications));
+    //SAVE NEW NOTIFICATIONS TO LS
+    localStorage.setItem(
+      "notifications",
+      JSON.stringify(filteredNotifications)
+    );
   };
 
   useEffect(() => {
@@ -116,21 +132,33 @@ const MyChat = () => {
                     backgroundColor={!chat.isGroupChat && "white"}
                   />
                   <Box
-                    onClick={() =>
-                      dispatch(chatSliceActions.setSelectedChat(chat))
-                    }
+                    onClick={() => openChatFromMyChat(chat)}
                     cursor="pointer"
-                    bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                    bg={selectedChat === chat ? "#38B2AC" : "#ECEFF1"}
                     color={selectedChat === chat ? "white" : "black"}
                     px={3}
                     py={2}
                     borderRadius="lg"
                     width="100%"
                   >
-                    <Text fontSize="lg">
+                    <Text
+                      fontSize="lg"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                      fontWeight="bold"
+                    >
                       {!chat.isGroupChat
                         ? getSender(user, chat.users)
                         : chat.chatName}
+                      {notificationMark(notificationData, chat) !== 0 && (
+                        <ChatIcon color="green" />
+                      )}
+                    </Text>
+                    <Text fontStyle="italic">
+                      {!chat.isGroupChat
+                        ? chat.latestMessage && chat.latestMessage.content
+                        : chat.latestMessage && chat.latestMessage.content}
                     </Text>
                   </Box>
                 </Flex>

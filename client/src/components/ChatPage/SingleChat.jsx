@@ -140,6 +140,11 @@ const SingleChat = () => {
               ...notification,
             ])
           );
+          //SAVE NOTIFICATIONS TO LOCAL STORAGE
+          localStorage.setItem(
+            "notifications",
+            JSON.stringify([newMessage, ...notification])
+          );
           dispatch(fetchAgainSliceActions.setFetchAgain());
         }
       } else {

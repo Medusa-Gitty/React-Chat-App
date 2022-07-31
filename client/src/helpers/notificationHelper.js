@@ -17,3 +17,14 @@ export const notificationFreq = (array) => {
   arr.forEach((e) => (total += e.freq));
   return total;
 };
+
+export const notificationMark = (array, chat) => {
+  let count = 0;
+  array.forEach((element) => {
+    if (element.chat._id === chat._id) {
+      count++;
+    }
+  });
+
+  return count;
+};
