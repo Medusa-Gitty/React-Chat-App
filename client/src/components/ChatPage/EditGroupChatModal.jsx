@@ -24,6 +24,7 @@ import { chatSliceActions } from "../../redux/chatSlice";
 import { fetchAgainSliceActions } from "../../redux/fetchAgainSlice";
 import UserListItem from "../User/UserListItem";
 import { SettingsIcon } from "@chakra-ui/icons";
+import { debounce } from "lodash";
 
 const EditGroupChatModal = ({ fetchMessages }) => {
   //LOCAL STATES
@@ -78,7 +79,7 @@ const EditGroupChatModal = ({ fetchMessages }) => {
     setGroupChatName("");
   };
 
-  const handleSearch = async (query) => {
+  const handleSearch = debounce(async (query) => {
     if (!query) {
       return;
     }
@@ -107,7 +108,7 @@ const EditGroupChatModal = ({ fetchMessages }) => {
       });
       setLoading(false);
     }
-  };
+  }, 1000);
 
   const handleAddUser = async (userToAdd) => {
     if (selectedChat.users.find((u) => u._id === userToAdd._id)) {
@@ -225,10 +226,20 @@ const EditGroupChatModal = ({ fetchMessages }) => {
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent margin="20px">
-          <ModalHeader fontSize="35px" display="flex" justifyContent="center">
+          <ModalHeader
+            fontSize="35px"
+            display="flex"
+            justifyContent="center"
+            style={{
+              backgroundImage: `url(${require("../../assets/images/bg12.jpg")})`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+            }}
+            color="white"
+          >
             {selectedChat.chatName}
           </ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton color="white" />
           <ModalBody display="flex" flexDir="column" alignItems="center">
             <Flex w="100%" flexWrap="wrap" pb={3}>
               {selectedChat.users.map((u) => (

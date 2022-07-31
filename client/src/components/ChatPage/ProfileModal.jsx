@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Image,
   Modal,
@@ -20,10 +21,18 @@ const ProfileModal = ({ user, children }) => {
       {children && <span onClick={onOpen}>{children}</span>}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent top={"25%"} margin="20px">
+        <ModalContent
+          top={"25%"}
+          margin="20px"
+          style={{
+            backgroundImage: `url(${require("../../assets/images/bg10.jpg")})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+        >
           <ModalHeader></ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
+          <ModalBody pb={8}>
             <Image
               src={user.pic}
               borderRadius="50%"
@@ -33,7 +42,8 @@ const ProfileModal = ({ user, children }) => {
               border="3px solid #4CAF50"
               padding="5px"
             />
-
+          </ModalBody>
+          <Box bg="white">
             <Text
               align="center"
               fontSize="xl"
@@ -45,8 +55,8 @@ const ProfileModal = ({ user, children }) => {
             <Text align="center" fontSize={["rg", "xl"]} marginTop="10px">
               <strong>Email</strong> : {user.email}
             </Text>
-          </ModalBody>
-          <ModalFooter>
+          </Box>
+          <ModalFooter bg="white" borderRadius={5}>
             <Button
               mr={3}
               onClick={onClose}
