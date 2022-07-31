@@ -1,5 +1,5 @@
 import { Avatar, Box, Flex, Text, Tooltip } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   isLastMessage,
   isSameSender,
@@ -9,7 +9,12 @@ import {
 import { useSelector } from "react-redux";
 
 const ScrollableChat = ({ messages }) => {
+  const bottomRef = useRef(null);
   const user = useSelector((state) => state.userData.userData);
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
     <>
       {messages &&
@@ -48,6 +53,7 @@ const ScrollableChat = ({ messages }) => {
             </Text>
           </Flex>
         ))}
+      <Box ref={bottomRef} />
     </>
   );
 };

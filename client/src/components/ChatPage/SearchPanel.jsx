@@ -36,12 +36,19 @@ import { userSliceActions } from "../../redux/userSlice";
 import { notificationSliceActions } from "../../redux/notificationSlice";
 import bg from "../../assets/images/bg6.jpg";
 import { getSender } from "../../helpers/chatLogics";
+import {
+  notificationHelper,
+  notificationFreq,
+} from "../../helpers/notificationHelper";
+import noResultsAnimation from "../../assets/animatons/noResults.json";
+import Lottie from "lottie-react";
 
 const SearchPanel = () => {
   //LOCAL States
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   //REDUX
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userData.userData);
@@ -70,6 +77,7 @@ const SearchPanel = () => {
 
   //ALL USERS in DB Search with DEBOUNCING
   const handleSearch = debounce(async (text) => {
+    setSearchQuery(text);
     try {
       setLoading(true);
       if (text === "") {
@@ -164,21 +172,28 @@ const SearchPanel = () => {
         <Flex>
           <Menu>
             <MenuButton p={1}>
-              <Badge ml="1" colorScheme="green">
-                {notification.length}
-              </Badge>
+              {notification.length && (
+                <Badge ml="1" colorScheme="green">
+                  {/* {notification.length} */}
+                  {notificationFreq(notification)}
+                </Badge>
+              )}
               <BellIcon fontSize="2xl" m={1} color="white" />
             </MenuButton>
-            <MenuList pl={2}>
+            <MenuList pl={3}>
               {!notification.length && "No new messages"}
-              {notification.map((n) => (
+              {notificationHelper(notification).map((n) => (
                 <MenuItem
-                  key={n._id}
-                  onClick={() => openChatFromNotification(n)}
+                  key={n.data._id}
+                  onClick={() => openChatFromNotification(n.data)}
+                  pr={5}
                 >
-                  {n.chat.isGroupChat
-                    ? `New message in ${n.chat.chatName}`
-                    : `New message from ${getSender(userData, n.chat.users)}`}
+                  {n.data.chat.isGroupChat
+                    ? `New message in : ${n.data.chat.chatName}`
+                    : `New message from - ${getSender(
+                        userData,
+                        n.data.chat.users
+                      )}`}
                 </MenuItem>
               ))}
             </MenuList>
@@ -227,7 +242,6 @@ const SearchPanel = () => {
               onChange={(e) => handleSearch(e.target.value)}
               mb={5}
             />
-
             {loading ? (
               <Stack>
                 <Skeleton height="50px" />
@@ -244,6 +258,14 @@ const SearchPanel = () => {
                   accessChatHandler={() => accessChat(user._id)}
                 />
               ))
+            )}
+            {!loading && searchResult.length === 0 && searchQuery !== "" && (
+              <>
+                <Text width="100%" align="center">
+                  Couldnt find anyone for : {searchQuery}
+                </Text>
+                <Lottie animationData={noResultsAnimation} loop={true} />
+              </>
             )}
             {loadingChat && (
               <Spinner

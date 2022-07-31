@@ -113,7 +113,7 @@ const MyChat = () => {
                     src={!chat.isGroupChat && getSenderPic(user, chat.users)}
                     border="3px solid #81C784"
                     p="2px"
-                    backgroundColor="white"
+                    backgroundColor={!chat.isGroupChat && "white"}
                   />
                   <Box
                     onClick={() =>
