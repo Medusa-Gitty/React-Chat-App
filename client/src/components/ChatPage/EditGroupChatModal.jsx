@@ -21,10 +21,11 @@ import { useSelector, useDispatch } from "react-redux";
 import UserBadgeItem from "./../User/UserBadgeItem";
 import axios from "axios";
 import { chatSliceActions } from "../../redux/chatSlice";
+import { fetchAgainSliceActions } from "../../redux/fetchAgainSlice";
 import UserListItem from "../User/UserListItem";
 import { SettingsIcon } from "@chakra-ui/icons";
 
-const EditGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
+const EditGroupChatModal = ({ fetchMessages }) => {
   //LOCAL STATES
   const [groupChatName, setGroupChatName] = useState("");
   const [searchResult, setSearchResult] = useState([]);
@@ -34,7 +35,6 @@ const EditGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
   const user = useSelector((state) => state.userData.userData);
   const dispatch = useDispatch();
   const { selectedChat } = useSelector((state) => state.chatData);
-  console.log(selectedChat);
   //MISC
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
@@ -59,7 +59,8 @@ const EditGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
         config
       );
       dispatch(chatSliceActions.setSelectedChat(data));
-      setFetchAgain((prev) => !prev);
+      // setFetchAgain((prev) => !prev);
+      dispatch(fetchAgainSliceActions.setFetchAgain());
       setRenameLoading(false);
       onClose();
     } catch (error) {
@@ -145,7 +146,7 @@ const EditGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
         config
       );
       dispatch(chatSliceActions.setSelectedChat(data));
-      setFetchAgain(!fetchAgain);
+      dispatch(fetchAgainSliceActions.setFetchAgain());
       setLoading(false);
       onClose();
     } catch (error) {
@@ -195,7 +196,7 @@ const EditGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
       userToRemove._id === user._id
         ? dispatch(chatSliceActions.setSelectedChat(null))
         : dispatch(chatSliceActions.setSelectedChat(data));
-      setFetchAgain(!fetchAgain);
+      dispatch(fetchAgainSliceActions.setFetchAgain());
       fetchMessages();
       setLoading(false);
       toast({

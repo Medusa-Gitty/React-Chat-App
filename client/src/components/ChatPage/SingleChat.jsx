@@ -16,6 +16,7 @@ import { getSender, getSenderFull } from "../../helpers/chatLogics";
 import ProfileModal from "./ProfileModal";
 import { chatSliceActions } from "../../redux/chatSlice";
 import { notificationSliceActions } from "../../redux/notificationSlice";
+import { fetchAgainSliceActions } from "../../redux/fetchAgainSlice";
 import EditGroupChatModal from "./EditGroupChatModal";
 import axios from "axios";
 import ScrollableChat from "./ScrollableChat";
@@ -27,7 +28,7 @@ const ENDPOINT = "http://localhost:5000";
 var socket;
 var selectedChatCompare;
 
-const SingleChat = ({ fetchAgain, setFetchAgain }) => {
+const SingleChat = () => {
   //REDUX
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userData.userData);
@@ -139,7 +140,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               ...notification,
             ])
           );
-          setFetchAgain(!fetchAgain);
+          dispatch(fetchAgainSliceActions.setFetchAgain());
         }
       } else {
         setMessages([...messages, newMessage]);
@@ -197,11 +198,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             ) : (
               <>
                 {selectedChat.chatName}
-                <EditGroupChatModal
-                  fetchMessages={fetchMessages}
-                  fetchAgain={fetchAgain}
-                  setFetchAgain={setFetchAgain}
-                />
+                <EditGroupChatModal fetchMessages={fetchMessages} />
               </>
             )}
           </Flex>
