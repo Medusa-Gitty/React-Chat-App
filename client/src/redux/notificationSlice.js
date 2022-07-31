@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getItem } from "../helpers/localStorage";
+
+const notificationData = getItem("notifications") || [];
 
 const initialState = {
-  notificationData: [],
+  notificationData: notificationData,
 };
 
 const notificationSlice = createSlice({
