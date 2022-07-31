@@ -17,13 +17,14 @@ import { chatSliceActions } from "../../redux/chatSlice";
 import GroupChatModal from "./GroupChatModal";
 import "./styles.scss";
 
-const MyChat = ({ fetchAgain }) => {
+const MyChat = () => {
   //LOCAL STATE
   const [loggedUser, setLoggedUser] = useState();
   //REDUX
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userData.userData);
   const { chats, selectedChat } = useSelector((state) => state.chatData);
+  const { fetchAgain } = useSelector((state) => state.fetchAgain);
   //MISC
   const toast = useToast();
 

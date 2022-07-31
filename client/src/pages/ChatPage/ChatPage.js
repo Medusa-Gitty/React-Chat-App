@@ -5,14 +5,6 @@ import MyChat from "../../components/ChatPage/MyChat";
 import ChatterBox from "../../components/ChatPage/ChatterBox";
 
 const ChatPage = () => {
-  // const navigate = useNavigate();
-  // const data = useSelector((state) => state.userData.userData);
-  // useEffect(() => {
-  //   if (data === "") {
-  //     navigate("/");
-  //   }
-  // }, [navigate, data]);
-
   const [fetchAgain, setFetchAgain] = useState(false);
 
   return (
