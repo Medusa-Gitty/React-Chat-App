@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Box } from "@chakra-ui/react";
 import SingleChat from "./SingleChat";
 
-const ChatterBox = ({ fetchAgain, setFetchAgain }) => {
+const ChatterBox = () => {
   //REDUX
   const { selectedChat } = useSelector((state) => state.chatData);
   return (
@@ -17,7 +17,7 @@ const ChatterBox = ({ fetchAgain, setFetchAgain }) => {
       borderRadius="lg"
       borderWidth="1px"
     >
-      <SingleChat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
+      <SingleChat />
     </Box>
   );
 };
