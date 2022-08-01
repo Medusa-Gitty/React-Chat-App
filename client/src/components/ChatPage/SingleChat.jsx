@@ -192,7 +192,7 @@ const SingleChat = () => {
       {selectedChat ? (
         <>
           <Flex
-            fontSize={["25px", "30px"]}
+            fontSize={["20px", "30px"]}
             pb={3}
             px={2}
             w="100%"
@@ -208,14 +208,20 @@ const SingleChat = () => {
             />
             {!selectedChat.isGroupChat ? (
               <>
-                {getSender(user, selectedChat.users)}
+                <Flex alignItems="center">
+                  {getSender(user, selectedChat.users)}
+                  <Image src={ping} boxSize="50px" />
+                </Flex>
                 <ProfileModal user={getSenderFull(user, selectedChat.users)}>
                   <IconButton isRound icon={<InfoIcon w={6} h={6} />} />
                 </ProfileModal>
               </>
             ) : (
               <>
-                {selectedChat.chatName}
+                <Flex alignItems="center">
+                  {selectedChat.chatName}
+                  <Image src={ping} boxSize="50px" />
+                </Flex>
                 <EditGroupChatModal fetchMessages={fetchMessages} />
               </>
             )}
