@@ -60,7 +60,6 @@ const EditGroupChatModal = ({ fetchMessages }) => {
         config
       );
       dispatch(chatSliceActions.setSelectedChat(data));
-      // setFetchAgain((prev) => !prev);
       dispatch(fetchAgainSliceActions.setFetchAgain());
       setRenameLoading(false);
       onClose();
@@ -201,7 +200,11 @@ const EditGroupChatModal = ({ fetchMessages }) => {
       fetchMessages();
       setLoading(false);
       toast({
-        title: `Removed ${userToRemove.name} from Party`,
+        title: `${
+          userToRemove.name === user.name
+            ? "You left the Party"
+            : userToRemove.name + " is removed from the party"
+        }`,
         status: "success",
         duration: 3000,
         isClosable: true,
