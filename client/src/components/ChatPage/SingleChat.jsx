@@ -43,6 +43,7 @@ const SingleChat = () => {
   const [socketConnected, setSocketConnected] = useState(false);
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+  const [roomId, setRoomId] = useState("");
   //MISC
   const toast = useToast();
 
@@ -118,9 +119,18 @@ const SingleChat = () => {
     socket = io(ENDPOINT);
     socket.emit("setup", user);
     socket.on("connection", () => setSocketConnected(true));
-    socket.on("typing", () => setIsTyping(true));
+    socket.on("typing", (RoomId) => setRoomId(RoomId));
     socket.on("stop typing", () => setIsTyping(false));
   }, []);
+
+  useEffect(() => {
+    if (selectedChat) {
+      if (selectedChat._id === roomId) {
+        setIsTyping(true);
+        setRoomId("");
+      }
+    }
+  }, [roomId, selectedChat]);
 
   useEffect(() => {
     fetchMessages();
