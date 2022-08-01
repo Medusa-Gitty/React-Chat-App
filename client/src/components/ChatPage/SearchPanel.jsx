@@ -234,11 +234,17 @@ const SearchPanel = () => {
             display="inline-block"
             overflow="hidden"
             margin="0"
+            style={{
+              backgroundImage: `url(${require("../../assets/images/bg16.jpg")})`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+            }}
           >
             <Input
               placeholder="Type here..."
               onChange={(e) => handleSearch(e.target.value)}
               mb={5}
+              bg="white"
             />
             {loading ? (
               <Stack>
@@ -276,7 +282,7 @@ const SearchPanel = () => {
                 size="xl"
               />
             )}
-            <Image
+            {/* <Image
               src={bg}
               display="block"
               position="absolute"
@@ -285,7 +291,7 @@ const SearchPanel = () => {
               min-height="100%"
               min-width="100%"
               transform="translate(-50%)"
-            />
+            /> */}
           </DrawerBody>
         </DrawerContent>
       </Drawer>
