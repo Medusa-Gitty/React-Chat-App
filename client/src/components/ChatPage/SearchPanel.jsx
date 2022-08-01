@@ -94,10 +94,7 @@ const SearchPanel = () => {
       const config = {
         headers: { Authorization: `Bearer ${userData.token}` },
       };
-      const { data } = await axios.get(
-        `http://localhost:5000/api/user?search=${text}`,
-        config
-      );
+      const { data } = await axios.get(`/api/user?search=${text}`, config);
       setLoading(false);
       if (data.length === 0) {
         setSearchResult([]);
@@ -131,11 +128,7 @@ const SearchPanel = () => {
           Authorization: `Bearer ${userData.token}`,
         },
       };
-      const { data } = await axios.post(
-        `http://localhost:5000/api/chat`,
-        { userId: id },
-        config
-      );
+      const { data } = await axios.post(`/api/chat`, { userId: id }, config);
       if (!chats.find((chat) => chat._id === data._id)) {
         dispatch(chatSliceActions.setChats([data, ...chats]));
       }
@@ -160,7 +153,7 @@ const SearchPanel = () => {
         justifyContent="space-between"
         alignItems="center"
         w="100%"
-        p={3}
+        p="6px"
         bg="black"
       >
         <Button
