@@ -4,6 +4,7 @@ import {
   Flex,
   FormControl,
   IconButton,
+  Image,
   Input,
   Spinner,
   Text,
@@ -23,6 +24,7 @@ import ScrollableChat from "./ScrollableChat";
 import io from "socket.io-client";
 import Lottie from "lottie-react";
 import typingAnimation from "../../assets/animatons/typing2.json";
+import ping from "../../assets/images/ping.png";
 
 // const ENDPOINT = "http://localhost:5000";
 const ENDPOINT = "https://ping-chat-app-server.herokuapp.com/";
@@ -190,7 +192,7 @@ const SingleChat = () => {
       {selectedChat ? (
         <>
           <Flex
-            fontSize={["25px", "30px"]}
+            fontSize={["20px", "30px"]}
             pb={3}
             px={2}
             w="100%"
@@ -206,14 +208,20 @@ const SingleChat = () => {
             />
             {!selectedChat.isGroupChat ? (
               <>
-                {getSender(user, selectedChat.users)}
+                <Flex alignItems="center">
+                  {getSender(user, selectedChat.users)}
+                  <Image src={ping} boxSize="50px" />
+                </Flex>
                 <ProfileModal user={getSenderFull(user, selectedChat.users)}>
                   <IconButton isRound icon={<InfoIcon w={6} h={6} />} />
                 </ProfileModal>
               </>
             ) : (
               <>
-                {selectedChat.chatName}
+                <Flex alignItems="center">
+                  {selectedChat.chatName}
+                  <Image src={ping} boxSize="50px" />
+                </Flex>
                 <EditGroupChatModal fetchMessages={fetchMessages} />
               </>
             )}
@@ -286,6 +294,7 @@ const SingleChat = () => {
         </>
       ) : (
         <Flex
+          direction="column"
           alignItems="center"
           justifyContent="center"
           h="100%"
@@ -298,8 +307,9 @@ const SingleChat = () => {
           }}
         >
           <Text fontSize="3xl" pb={3}>
-            Click on a user to start chatting
+            Click on a user to start chatting !
           </Text>
+          <Image src={ping} boxSize="200px" />
         </Flex>
       )}
     </>
