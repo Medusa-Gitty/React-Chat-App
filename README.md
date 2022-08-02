@@ -46,6 +46,7 @@
 <br/>
 
 **2. You can login if you already have an account and jump right into the Chat Page**
+
 ![1](https://user-images.githubusercontent.com/82367609/182319727-df6fd98b-9f9f-4dba-9468-7d9a202dd335.png)
 ![4](https://user-images.githubusercontent.com/82367609/182319756-b072494d-eda3-4c4c-b1dc-734810309d05.png)
 
