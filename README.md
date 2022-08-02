@@ -41,9 +41,9 @@
 <strong>Ping !</strong> is a realtime chat application build using the MERN stack and <strong>Socket.IO</strong> as the web socket for the <strong> bidirectional realtime connection between client and the server. </strong> You have to create an account and then you can search for your friends in the app and add them to your Friend/Chat list. You can send messages, create groups/parties with your added friends and <strong> everything happens in  realtime. </strong> You will get <strong> notifications </strong> in case you miss any message/ping while you are AFK!
 
 ## 🚀 Features
-- Fast, minimal Web app with optimized codes for better User experience.
+- Fast, minimal Web app with optimized codes for better User Experience.
 - Search for any user with Email / Name and add them to your contact list.
-- Realtime messaging platform with lot latency feedback.
+- Realtime messaging platform with low latency feedback.
 - Create parties with your friends.
 - Responsive for every screen size.
 - Ping Notifications if you miss any latest message.
@@ -69,4 +69,51 @@
 
 **5.Add / Remove members from to-from your party**
 
-![5](https://user-images.githubusercontent.com/82367609/182319772-cbd46918-b428-45d8-bc47-abfcb8236567.png)
+
+## Getting Started
+
+This project was built using React, Redux Toolkits, Chakra UI, MongoDB, NodeJS, Express, SocketIO, SASS and Rest API. It is a web application and for running on your local environment you should follow these guidelines.
+
+### Prerequisites
+
+- NPM 
+
+### Setup
+
+
+The project repository can be found in [GitHub link](https://github.com/Medusa-Gitty/React-Chat-App) or just clone the project. 
+
+## Install
+
+Install NPM
+
+Check that you have node and npm installed
+
+To check if you have Node.js installed, run this command in your terminal:
+
+
+```
+node -v
+```
+
+To confirm that you have npm installed you can run this command in your terminal:
+
+
+```
+npm -v
+```
+
+
+To install all the dependences of the project, run the following command:
+
+
+```
+npm install
+```
+
+
+To run the application, run the following command:
+
+```
+npm run dev
+```
