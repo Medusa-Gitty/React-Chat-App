@@ -40,7 +40,16 @@
 
 <strong>Ping !</strong> is a realtime chat application build using the MERN stack and <strong>Socket.IO</strong> as the web socket for the <strong> bidirectional realtime connection between client and the server. </strong> You have to create an account and then you can search for your friends in the app and add them to your Friend/Chat list. You can send messages, create groups/parties with your added friends and <strong> everything happens in  realtime. </strong> You will get <strong> notifications </strong> in case you miss any message/ping while you are AFK!
 
-**1 Create your account >**>
+## 🚀 Features
+- Fast, minimal Web app with optimized codes for better User experience.
+- Search for any user with Email / Name and add them to your contact list.
+- Realtime messaging platform with lot latency feedback.
+- Create parties with your friends.
+- Responsive for every screen size.
+- Ping Notifications if you miss any latest message.
+- User friendly UI design.
+
+**1 Create your account >**
 ![2](https://user-images.githubusercontent.com/82367609/182319603-012864d0-cdca-4702-8ff1-3805e37f4d21.png)
 
 <br/>
