@@ -40,5 +40,7 @@
 
 <h3 align="center"><a href="https://ping-chat-medusa-gitty.vercel.app/"><strong>Live !</strong></a></h3>
 
+<p align="center>
 <strong>Ping !</strong> is a realtime chat application build using the MERN stack and <img src="https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101"/>
 as the web socket for the <strong> bidirectional realtime connection between client and the server. </strong> You have to create an account and then you can search for your friends in the app and add them to your Friend/Chat list. You can send messages, create groups/parties with your added friends and <strong> everything happens in  realtime. </strong> You will get <strong> notifications </strong> in case you miss any message/ping while you are AFK!
+ </p>
