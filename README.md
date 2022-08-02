@@ -59,18 +59,5 @@
 ![3](https://user-images.githubusercontent.com/82367609/182319745-1b12ca31-eec3-48c4-8653-be7ebc0ac5bb.png)
 
 **5.Add / Remove members from to-from your party **
-![5](https://user-images.githubusercontent.com/82367609/182319772-cbd46918-b428-45d8-bc47-abfcb8236567.png)
-
-
-
-![3](https://user-images.githubusercontent.com/82367609/182319745-1b12ca31-eec3-48c4-8653-be7ebc0ac5bb.png)
-
-![4](https://user-images.githubusercontent.com/82367609/182319756-b072494d-eda3-4c4c-b1dc-734810309d05.png)
 
 ![5](https://user-images.githubusercontent.com/82367609/182319772-cbd46918-b428-45d8-bc47-abfcb8236567.png)
-
-![6](https://user-images.githubusercontent.com/82367609/182319786-9154c9ef-dac6-475d-a7a1-71f1cf8eba6a.png)
-
-![7](https://user-images.githubusercontent.com/82367609/182319800-1cd6b551-650b-4d36-8b5a-c5423783f6ec.png)
-
-
