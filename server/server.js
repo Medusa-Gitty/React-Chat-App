@@ -11,8 +11,8 @@ const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 
 const app = express();
 app.use(express.json());
-app.use(cors());
 dotenv.config();
+app.use(cors());
 
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
@@ -43,7 +43,14 @@ const server = app.listen(PORT, () => {
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: ["*", "https://ping-chat-medusa-gitty.vercel.app/"],
+    origin: [
+      "http://localhost:3000",
+      "https://localhost:3000",
+      "http://ping-chat-medusa-gitty.vercel.app/",
+      "https://ping-chat-medusa-gitty.vercel.app/",
+      "http://ping-chat-medusa-gitty.vercel.app",
+      "https://ping-chat-medusa-gitty.vercel.app",
+    ],
   },
 });
 
