@@ -39,10 +39,11 @@ const server = app.listen(PORT, () => {
 });
 
 //SOCKET CONNETION
+//ORIGIN SET TO ALL (BAD PRACTICE)
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "http://localhost:3000",
+    origin: ["*", "https://ping-chat-medusa-gitty.vercel.app/"],
   },
 });
 

@@ -27,7 +27,7 @@ import typingAnimation from "../../assets/animatons/typing2.json";
 import ping from "../../assets/images/ping.png";
 
 // const ENDPOINT = "http://localhost:5000";
-const ENDPOINT = "https://ping-chat-app-server.herokuapp.com/";
+const ENDPOINT = "https://ping-chat-app-server.herokuapp.com";
 var socket;
 var selectedChatCompare;
 
