@@ -56,7 +56,7 @@
 
 ![7](https://user-images.githubusercontent.com/82367609/182319800-1cd6b551-650b-4d36-8b5a-c5423783f6ec.png)
 
-<div>
+<div align="center>
   <div style="display: flex;">
   <img src="https://user-images.githubusercontent.com/82367609/182319603-012864d0-cdca-4702-8ff1-3805e37f4d21.png"/>
   <img src="https://user-images.githubusercontent.com/82367609/182319727-df6fd98b-9f9f-4dba-9468-7d9a202dd335.png"/>
