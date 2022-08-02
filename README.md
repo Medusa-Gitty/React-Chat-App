@@ -50,9 +50,18 @@
 ![1](https://user-images.githubusercontent.com/82367609/182319727-df6fd98b-9f9f-4dba-9468-7d9a202dd335.png)
 ![4](https://user-images.githubusercontent.com/82367609/182319756-b072494d-eda3-4c4c-b1dc-734810309d05.png)
 
+**3. Search for your friends and add them to your Contact/Chat List**
+
+![6](https://user-images.githubusercontent.com/82367609/182319786-9154c9ef-dac6-475d-a7a1-71f1cf8eba6a.png)
+
+**4.Now you can ping them up or create parties with your friends 🥳**
+
+![3](https://user-images.githubusercontent.com/82367609/182319745-1b12ca31-eec3-48c4-8653-be7ebc0ac5bb.png)
+
+**5.Add / Remove members from to-from your party **
+![5](https://user-images.githubusercontent.com/82367609/182319772-cbd46918-b428-45d8-bc47-abfcb8236567.png)
 
 
-![1](https://user-images.githubusercontent.com/82367609/182319727-df6fd98b-9f9f-4dba-9468-7d9a202dd335.png)
 
 ![3](https://user-images.githubusercontent.com/82367609/182319745-1b12ca31-eec3-48c4-8653-be7ebc0ac5bb.png)
 
