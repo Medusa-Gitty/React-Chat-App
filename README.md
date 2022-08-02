@@ -1,6 +1,4 @@
 # Ping-Chat-App
- 
-![2](https://user-images.githubusercontent.com/82367609/182310200-24c542a2-e36f-4219-a9ed-a77ba6db82cc.png)
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/82367609/182313722-eaed9a88-1a26-4d6e-ac95-0c417dd2c9d9.png"/>
@@ -41,6 +39,13 @@
 <h3 align="center"><a href="https://ping-chat-medusa-gitty.vercel.app/"><strong>Live !</strong></a></h3>
 
 <strong>Ping !</strong> is a realtime chat application build using the MERN stack and <strong>Socket.IO</strong> as the web socket for the <strong> bidirectional realtime connection between client and the server. </strong> You have to create an account and then you can search for your friends in the app and add them to your Friend/Chat list. You can send messages, create groups/parties with your added friends and <strong> everything happens in  realtime. </strong> You will get <strong> notifications </strong> in case you miss any message/ping while you are AFK!
+
+**1 Create your account >**>
+![2](https://user-images.githubusercontent.com/82367609/182319603-012864d0-cdca-4702-8ff1-3805e37f4d21.png)
+
+**2. You can login if you already have an account and jump right into the Chat Page**
+![1](https://user-images.githubusercontent.com/82367609/182319727-df6fd98b-9f9f-4dba-9468-7d9a202dd335.png)
+![4](https://user-images.githubusercontent.com/82367609/182319756-b072494d-eda3-4c4c-b1dc-734810309d05.png)
 
 ![2](https://user-images.githubusercontent.com/82367609/182319603-012864d0-cdca-4702-8ff1-3805e37f4d21.png)
 
