@@ -58,6 +58,6 @@
 
 ![3](https://user-images.githubusercontent.com/82367609/182319745-1b12ca31-eec3-48c4-8653-be7ebc0ac5bb.png)
 
-**5.Add / Remove members from to-from your party **
+**5.Add / Remove members from to-from your party**
 
 ![5](https://user-images.githubusercontent.com/82367609/182319772-cbd46918-b428-45d8-bc47-abfcb8236567.png)
