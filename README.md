@@ -8,7 +8,7 @@
 
 <h2 align="center">Realtime Messaging platform using Socket.IO</h2>
 
-<h4 align="center">Frontend:</h4>
+<h3 align="center">Frontend:</h4>
 
 <p align="center">
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="reactjs" />
@@ -20,7 +20,7 @@
 </p>
 
 
-<h4 align="center">Backend:</h4>
+<h3 align="center">Backend:</h4>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="nodejs" />
@@ -31,7 +31,7 @@
 </p>
 
 
-<h4 align="center">Deployed On:</h4>
+<h3 align="center">Deployed On:</h4>
 
 <p align="center">
   <img src="https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white" alt="vercel" />
